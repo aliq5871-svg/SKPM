@@ -43,10 +43,49 @@
     .score-2 { background: #fef08a; color: #713f12; }
     .score-3 { background: #bbf7d0; color: #065f46; }
     .score-4 { background: #86efac; color: #15803d; }
-    .status-excellent { background: #d1fae5; color: #065f46; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
-    .status-good { background: #dbeafe; color: #0c2d6b; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
-    .status-fair { background: #fef3c7; color: #78350f; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
-    .status-poor { background: #fee2e2; color: #7f1d1d; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
+    .status-excellent,
+.status-good,
+.status-fair,
+.status-poor{
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:140px;
+  height:48px;
+
+  border-radius:14px;
+
+  font-weight:700;
+  font-size:15px;
+
+  text-align:center;
+}
+
+/* Cemerlang */
+.status-excellent{
+  background:#dcfce7;
+  color:#166534;
+}
+
+/* Baik */
+.status-good{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+/* Sederhana */
+.status-fair{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+/* Lemah */
+.status-poor{
+  background:#fee2e2;
+  color:#b91c1c;
+}
     .progress-bar { height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%); transition: width 0.3s ease; }
     .table-modern th { background: #f3f4f6; font-weight: 700; color: #1f2937; border-bottom: 2px solid #e5e7eb; text-align: left; }
@@ -75,7 +114,14 @@
   width: 190mm;
   margin: auto;
 }
+table td,
+table th{
+  vertical-align: middle;
+}
 
+.score-cell{
+  font-variant-numeric: tabular-nums;
+}
 
   </style>
   <style>@view-transition { navigation: auto; }</style>
@@ -198,14 +244,31 @@
         <tr class="bg-gray-100 border-b-2 border-gray-300">
          <th class="text-left font-bold text-gray-700 py-3 px-4 w-40">Nama Sekolah</th>
          <th class="text-left font-bold text-gray-700 py-3 px-4 w-24 hidden sm:table-cell">Kod</th>
-        <th class="w-16 px-2 py-3 text-center">S1</th>
-<th class="w-16 px-2 py-3 text-center hidden md:table-cell">S2</th>
-<th class="w-16 px-2 py-3 text-center hidden lg:table-cell">S3</th>
-<th class="w-16 px-2 py-3 text-center">S4</th>
-<th class="w-20 px-2 py-3 text-center">Skor</th>
+       <th class="w-20 px-3 py-3 text-center align-middle font-bold">S1</th>
 
-         <th class="text-center font-bold text-gray-700 py-3 px-2 w-28 hidden sm:table-cell">Status</th>
-         <th class="text-center font-bold text-gray-700 py-3 px-2 w-24">Aksi</th>
+<th class="w-20 px-3 py-3 text-center align-middle font-bold hidden md:table-cell">
+S2
+</th>
+
+<th class="w-20 px-3 py-3 text-center align-middle font-bold hidden lg:table-cell">
+S3
+</th>
+
+<th class="w-20 px-3 py-3 text-center align-middle font-bold">
+S4
+</th>
+
+<th class="w-24 px-3 py-3 text-center align-middle font-bold">
+Skor
+</th>
+
+<th class="w-32 px-3 py-3 text-center align-middle font-bold hidden sm:table-cell">
+Status
+</th>
+
+<th class="w-28 px-3 py-3 text-center align-middle font-bold">
+Aksi
+</th>
         </tr>
        </thead>
        <tbody id="assessments-table">
@@ -234,7 +297,26 @@
     </div>
   </div>
 </div>
+<div class="bg-indigo-50 border border-indigo-200 rounded-xl p-5 mb-6">
 
+  <div class="flex items-center gap-3 mb-2">
+
+    <div class="text-2xl">🤖</div>
+
+    <h3 class="font-bold text-indigo-900">
+      AI Insight Ringkas
+    </h3>
+
+  </div>
+
+  <div id="ai-insight"
+    class="text-indigo-800 text-sm leading-relaxed">
+
+    Tiada analisis lagi.
+
+  </div>
+
+</div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
 
 
@@ -367,6 +449,7 @@ const USERS = [
 ];
 
 let currentUser = null;
+
 const API_URL = "https://script.google.com/macros/s/AKfycbyKI72XW_ynGm_2gp7WMAEWO6NbG5ckI1fVVZymGrAKLnZJRUa4W5Gx3TGxDeALmuJ6xA/exec";
 const LOGO_PPD = "https://i.imgur.com/4EGUuTx.png";
 const SCHOOL_LIST = [
@@ -438,6 +521,17 @@ async function loadFromSheet() {
 
     return {
       ...clean,
+nama_sekolah:
+  clean.nama_sekolah ||
+  clean["Nama Sekolah"] ||
+  clean.school_name ||
+  "",
+
+kod_sekolah:
+  clean.kod_sekolah ||
+  clean["Kod Sekolah"] ||
+  clean.school_code ||
+  "",
       __backendId: String(clean.__id ?? ""),
       __id: String(clean.__id ?? ""),
       skor_standard_1: parseFloat(clean.skor_standard_1) || 0,
@@ -449,7 +543,9 @@ async function loadFromSheet() {
     };
   });
 
-  updateDashboard(); // ✅ WAJIB di luar map
+  
+updateDashboard();
+updateRanking(); // ✅ WAJIB di luar map
 }
     // SKPM Items Data (268 items dengan Aspek)
     const skpmItems = [
@@ -894,36 +990,134 @@ function populateSchoolDropdowns(){
     }
 
     function updateDashboard() {
-      const total = allRecords.length;
-      document.getElementById('total-assessments').textContent = total;
 
-      if (total === 0) {
-        document.getElementById('average-score').textContent = '0.00';
-        document.getElementById('overall-status').textContent = '-';
-        document.getElementById('target-achievement').textContent = '0%';
-        renderTable();
-        updateStandardAverages();
-        updateStatusDistribution();
+  const total = allRecords.length;
 
-        return;
-      }
+  document.getElementById('total-assessments').textContent = total;
 
-      const avgScore = allRecords.reduce((sum, r) => sum + (r.skor_keseluruhan || 0), 0) / total;
-      const targetSkor = parseFloat(config.target_skor) || 3.5;
-      const achieveTarget = allRecords.filter(r => (r.skor_keseluruhan || 0) >= targetSkor).length;
-      const achievePercent = Math.round((achieveTarget / total) * 100);
+  if (total === 0) {
 
-      document.getElementById('average-score').textContent = avgScore.toFixed(2);
-      document.getElementById('overall-status').textContent = getStatus(avgScore);
-      document.getElementById('target-achievement').textContent = achievePercent + '%';
+    document.getElementById('average-score').textContent = '0.00';
+    document.getElementById('overall-status').textContent = '-';
+    document.getElementById('target-achievement').textContent = '0%';
 
-     renderTable();
-updateStandardAverages();
-updateStatusDistribution();
+    renderTable();
+    updateStandardAverages();
+    updateStatusDistribution();
 updateRanking();
-updateStandardMiniChart();
 
-    }
+    return;
+  }
+
+  // KIRA PURATA
+  const avg =
+    allRecords.reduce((sum, r) =>
+      sum + r.skor_keseluruhan, 0) / total;
+
+  document.getElementById('average-score')
+    .textContent = avg.toFixed(2);
+
+  // STATUS
+  let status = '-';
+
+  if (avg >= 3.5) {
+    status = 'Cemerlang';
+  } else if (avg >= 2.5) {
+    status = 'Baik';
+  } else if (avg >= 1.5) {
+    status = 'Sederhana';
+  } else {
+    status = 'Lemah';
+  }
+
+  document.getElementById('overall-status')
+    .textContent = status;
+
+  // TARGET
+  const targetCount =
+    allRecords.filter(r =>
+      r.skor_keseluruhan >= config.target_skor
+    ).length;
+
+  const targetPercent =
+    ((targetCount / total) * 100).toFixed(0);
+
+  document.getElementById('target-achievement')
+    .textContent = targetPercent + '%';
+
+  renderTable();
+  updateStandardAverages();
+  updateStatusDistribution();
+
+  // ✅ AI INSIGHT
+  generateAIInsight();
+}
+function generateAIInsight() {
+
+  const insightBox =
+    document.getElementById("ai-insight");
+
+  if (!allRecords.length) {
+
+    insightBox.innerHTML =
+      "Belum ada data penilaian.";
+
+    return;
+  }
+
+  const avgS1 = average(
+    allRecords.map(r => r.skor_standard_1)
+  );
+
+  const avgS2 = average(
+    allRecords.map(r => r.skor_standard_2)
+  );
+
+  const avgS3 = average(
+    allRecords.map(r => r.skor_standard_3)
+  );
+
+  const avgS4 = average(
+    allRecords.map(r => r.skor_standard_4)
+  );
+
+  const scores = [
+    { std: 1, score: avgS1 },
+    { std: 2, score: avgS2 },
+    { std: 3, score: avgS3 },
+    { std: 4, score: avgS4 }
+  ];
+
+  scores.sort((a,b) => a.score - b.score);
+
+  const weakest = scores[0];
+
+  let message = "";
+
+  if (weakest.score < 2.0) {
+
+    message =
+      `⚠️ Standard ${weakest.std} menunjukkan kelemahan kritikal dan memerlukan intervensi segera.`;
+
+  } else if (weakest.score < 3.0) {
+
+    message =
+      `📌 Standard ${weakest.std} menunjukkan pencapaian sederhana dan perlu diperkukuh.`;
+
+  } else {
+
+    message =
+      `✅ Semua standard menunjukkan prestasi baik dan stabil.`;
+
+  }
+
+  insightBox.innerHTML = message;
+}
+
+function average(arr) {
+
+  return arr.reduce((a,b)=>a+b,0) / arr.length;
+}
 
     function getStatus(score) {
       if (score >= 3.5) return 'Cemerlang';
@@ -962,34 +1156,34 @@ updateStandardMiniChart();
           ${record.school_code || '-'}
         </td>
 
-        <td class="text-center font-bold text-gray-900 py-3 px-2 w-16">
-          ${record.skor_standard_1.toFixed(1)}
-        </td>
+       <td class="w-20 text-center align-middle py-3 font-semibold">
+  ${Number(record.skor_standard_1 || 0).toFixed(2)}
+</td>
 
-        <td class="text-center font-bold text-gray-900 py-3 px-2 w-16 hidden md:table-cell">
-          ${record.skor_standard_2.toFixed(1)}
-        </td>
+<td class="w-20 text-center align-middle py-3 font-semibold">
+  ${Number(record.skor_standard_2 || 0).toFixed(2)}
+</td>
 
-        <td class="text-center font-bold text-gray-900 py-3 px-2 w-16 hidden lg:table-cell">
-          ${record.skor_standard_3.toFixed(1)}
-        </td>
+<td class="w-20 text-center align-middle py-3 font-semibold">
+  ${Number(record.skor_standard_3 || 0).toFixed(2)}
+</td>
 
-        <td class="text-center font-bold text-gray-900 py-3 px-2 w-16">
-          ${record.skor_standard_4.toFixed(1)}
-        </td>
+<td class="w-20 text-center align-middle py-3 font-semibold">
+  ${Number(record.skor_standard_4 || 0).toFixed(2)}
+</td>
 
-        <td class="text-center font-bold text-blue-600 py-3 px-2 w-20">
-          ${record.skor_keseluruhan.toFixed(2)}
-        </td>
+<td class="w-24 text-center align-middle py-3 font-bold text-blue-700">
+  ${Number(record.skor_keseluruhan || 0).toFixed(2)}
+</td>
 
-        <td class="text-center py-3 px-2 w-28 hidden sm:table-cell">
+        <td class="w-32 text-center align-middle py-3">
           <span class="${badgeClass} text-xs">
             ${getStatus(record.skor_keseluruhan)}
           </span>
         </td>
 
         <!-- 🔥 ROLE CONTROL DI SINI -->
-        <td class="text-center py-3 px-2 w-24">
+        <td class="w-28 text-center align-middle py-3">
           <div class="flex gap-1 justify-center flex-wrap">
 
             <!-- semua user boleh tengok -->
@@ -1044,30 +1238,90 @@ updateStandardMiniChart();
       document.getElementById('status-poor-count').textContent = poor;
     }
 function updateRanking() {
-  if (allRecords.length === 0) {
-    document.getElementById('top-ranking').innerHTML = '';
-    document.getElementById('bottom-ranking').innerHTML = '';
+
+  const topBox =
+    document.getElementById("top-ranking");
+
+  const bottomBox =
+    document.getElementById("bottom-ranking");
+
+  if (!topBox || !bottomBox) return;
+
+  if (!allRecords || allRecords.length === 0) {
+
+    topBox.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
+    bottomBox.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
     return;
   }
 
-  const sorted = [...allRecords].sort((a, b) => b.skor_keseluruhan - a.skor_keseluruhan);
+  const sorted = [...allRecords]
+    .sort((a,b) =>
+      Number(b.skor_keseluruhan || 0) -
+      Number(a.skor_keseluruhan || 0)
+    );
 
-  const top5 = sorted.slice(0, 5);
-  const bottom5 = sorted.slice(-5).reverse();
+  const top5 = sorted.slice(0,5);
 
-  document.getElementById('top-ranking').innerHTML = top5.map((r, i) => `
-    <div class="flex justify-between bg-green-50 border border-green-200 px-3 py-2 rounded">
-      <span class="font-semibold">${i + 1}. ${r.school_name}</span>
-      <span class="font-bold text-green-700">${r.skor_keseluruhan.toFixed(2)}</span>
+  const bottom5 =
+    [...sorted]
+      .reverse()
+      .slice(0,5);
+
+  topBox.innerHTML = top5.map((r,i)=>`
+
+    <div class="flex items-center justify-between
+      bg-green-50 border border-green-200
+      rounded-lg px-3 py-2">
+
+      <div>
+
+        <div class="font-semibold text-gray-800">
+          ${i + 1}. ${r.nama_sekolah || r.school_name || r["Nama Sekolah"] || "-"}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || r.school_code || r["Kod Sekolah"] || ""}
+        </div>
+
+      </div>
+
+      <div class="font-bold text-green-700">
+        ${Number(r.skor_keseluruhan || 0).toFixed(2)}
+      </div>
+
     </div>
-  `).join('');
 
-  document.getElementById('bottom-ranking').innerHTML = bottom5.map((r, i) => `
-    <div class="flex justify-between bg-red-50 border border-red-200 px-3 py-2 rounded">
-      <span class="font-semibold">${i + 1}. ${r.school_name}</span>
-      <span class="font-bold text-red-700">${r.skor_keseluruhan.toFixed(2)}</span>
+  `).join("");
+
+  bottomBox.innerHTML = bottom5.map((r,i)=>`
+
+    <div class="flex items-center justify-between
+      bg-red-50 border border-red-200
+      rounded-lg px-3 py-2">
+
+      <div>
+
+        <div class="font-semibold text-gray-800">
+          ${i + 1}. $${r.nama_sekolah || r["nama sekolah"] || "-"}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || ""}
+        </div>
+
+      </div>
+
+      <div class="font-bold text-red-700">
+        ${Number(r.skor_keseluruhan || 0).toFixed(2)}
+      </div>
+
     </div>
-  `).join('');
+
+  `).join("");
 }
 function updateStandardMiniChart() {
   if (allRecords.length === 0) return;
@@ -1563,6 +1817,166 @@ function applyRoleAccess() {
 function logout() {
   localStorage.removeItem("skpm_user");
   location.reload();
+}
+setInterval(loadFromSheet, 10000);
+function updateRanking() {
+
+  const topBox =
+    document.getElementById("top-ranking");
+
+  const bottomBox =
+    document.getElementById("bottom-ranking");
+
+  if (!allRecords.length) {
+
+    topBox.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
+    bottomBox.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
+    return;
+  }
+
+  const sorted = [...allRecords]
+    .sort((a,b) =>
+      b.skor_keseluruhan - a.skor_keseluruhan
+    );
+
+  const top5 = sorted.slice(0,5);
+
+  const bottom5 = sorted.slice(-5).reverse();
+
+  topBox.innerHTML = top5.map((r,i)=>`
+
+    <div class="flex items-center justify-between
+      bg-green-50 border border-green-200
+      rounded-lg px-3 py-2">
+
+      <div>
+
+        <div class="font-semibold text-gray-800">
+          ${i+1}. ${r.nama_sekolah}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || ""}
+        </div>
+
+      </div>
+
+      <div class="font-bold text-green-700">
+        ${Number(r.skor_keseluruhan).toFixed(2)}
+      </div>
+
+    </div>
+
+  `).join("");
+
+  bottomBox.innerHTML = bottom5.map((r,i)=>`
+
+    <div class="flex items-center justify-between
+      bg-red-50 border border-red-200
+      rounded-lg px-3 py-2">
+
+      <div>
+
+        <div class="font-semibold text-gray-800">
+          ${i+1}. ${r.nama_sekolah}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || ""}
+        </div>
+
+      </div>
+
+      <div class="font-bold text-red-700">
+        ${Number(r.skor_keseluruhan).toFixed(2)}
+      </div>
+
+    </div>
+
+  `).join("");
+}
+function updateRanking() {
+
+  const topDiv =
+    document.getElementById("top-ranking");
+
+  const bottomDiv =
+    document.getElementById("bottom-ranking");
+
+  if (!allRecords || allRecords.length === 0) {
+
+    topDiv.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
+    bottomDiv.innerHTML =
+      "<div class='text-gray-500'>Tiada data</div>";
+
+    return;
+  }
+
+  const sorted = [...allRecords]
+    .sort((a, b) =>
+      (b.skor_keseluruhan || 0) -
+      (a.skor_keseluruhan || 0)
+    );
+
+  const top5 = sorted.slice(0, 5);
+
+  const bottom5 =
+    [...sorted].reverse().slice(0, 5);
+
+  topDiv.innerHTML = top5.map((r, i) => `
+
+    <div class="flex items-center justify-between
+      bg-green-50 border border-green-200
+      rounded-lg px-3 py-2">
+
+      <div>
+        <div class="font-semibold text-gray-800">
+          ${i + 1}. ${r.nama_sekolah || "-"}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || ""}
+        </div>
+      </div>
+
+      <div class="font-bold text-green-700">
+        ${(r.skor_keseluruhan || 0).toFixed(2)}
+      </div>
+
+    </div>
+
+  `).join("");
+
+  bottomDiv.innerHTML = bottom5.map((r, i) => `
+
+    <div class="flex items-center justify-between
+      bg-red-50 border border-red-200
+      rounded-lg px-3 py-2">
+
+      <div>
+        <div class="font-semibold text-gray-800">
+          ${i + 1}. ${r.nama_sekolah || "-"}
+        </div>
+
+        <div class="text-xs text-gray-500">
+          ${r.kod_sekolah || ""}
+        </div>
+      </div>
+
+      <div class="font-bold text-red-700">
+        ${(r.skor_keseluruhan || 0).toFixed(2)}
+      </div>
+
+    </div>
+
+  `).join("");
+
 }
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
