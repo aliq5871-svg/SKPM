@@ -6,6 +6,7 @@
   <title>Sistem Penilaian SKPM PPD (268 Item) </title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
 @media print {
@@ -14,6 +15,7 @@
   }
 
   #report-content, #report-content * {
+
     visibility: visible !important;
   }
 
@@ -25,7 +27,17 @@
     min-height: 297mm;
     padding: 20mm;
     background: white;
-  }
+  }.table-modern th,
+.table-modern td{
+  text-align:center;
+  vertical-align:middle;
+}
+
+/* Nama sekolah kekal kiri */
+.school-name{
+  text-align:left !important;
+  padding-left:16px;
+}
 }
     body { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     html, body, #app { height: 100%; width: 100%; }
@@ -88,7 +100,19 @@
 }
     .progress-bar { height: 10px; background: #e5e7eb; border-radius: 5px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6 0%, #1e40af 100%); transition: width 0.3s ease; }
-    .table-modern th { background: #f3f4f6; font-weight: 700; color: #1f2937; border-bottom: 2px solid #e5e7eb; text-align: left; }
+   .table-modern th {
+  background: #f3f4f6;
+  font-weight: 700;
+  color: #1f2937;
+  border-bottom: 2px solid #e5e7eb;
+  text-align: center;
+  vertical-align: middle;
+}
+.table-modern td{
+  border-bottom:1px solid #f3f4f6;
+  text-align:center;
+  vertical-align:middle;
+}
     .table-modern td { border-bottom: 1px solid #f3f4f6; }
 @media (max-width: 768px){
 
@@ -141,6 +165,24 @@
     .item-label { flex: 1; font-size: 0.875rem; font-weight: 500; color: #374151; }
     .item-score { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
 .tab-btn{
+  padding:8px 14px;
+  border-radius:8px;
+  font-weight:600;
+  border:1px solid #d1d5db;
+  background:white;
+  cursor:pointer;
+}
+
+.tab-btn.active{
+  background:#2563eb;
+  color:white;
+  border-color:#1d4ed8;
+}
+
+button{
+  min-height:44px;
+}
+
 @media(max-width:768px){
 
   .tab-btn{
@@ -149,37 +191,29 @@
     font-size:13px;
   }
 
-  button{
-    min-height:44px;
-  }
+}
 
-}
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:600;
-  border:1px solid #d1d5db;
-  background:white;
-  cursor:pointer;
-}
-.tab-btn.active{
-  background:#2563eb;
-  color:white;
-  border-color:#1d4ed8;
-}
 #print-area{
-  width: 190mm;
-  margin: auto;
+  width:190mm;
+  margin:auto;
 }
+
 table td,
 table th{
-  vertical-align: middle;
+  vertical-align:middle;
 }
 
 .score-cell{
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric:tabular-nums;
 }
 
-  </style>
+@media print{
+
+  .no-print{
+    display:none !important;
+  }
+
+}  </style>
   <style>@view-transition { navigation: auto; }</style>
  </head>
  <body class="h-full">
@@ -289,7 +323,6 @@ table th{
   class="bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-700 transition flex items-center gap-2">
   📥 Export Excel Semua Rekod
 </button>
-
       <h2 class="text-base sm:text-lg font-bold text-gray-900">Rekod Penilaian</h2><button onclick="showAddModal()" class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition flex items-center justify-center gap-2">
        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
        </svg> Penilaian Baru </button>
@@ -297,11 +330,21 @@ table th{
      <div class="overflow-x-auto max-h-[420px] overflow-y-auto border-t mobile-card-table">
   <table class="w-full text-sm table-modern table-fixed">
 
-      <thead class="sticky top-0 bg-gray-100 z-10">
-        <tr class="bg-gray-100 border-b-2 border-gray-300">
-         <th class="text-left font-bold text-gray-700 py-3 px-4 w-40">Nama Sekolah</th>
-         <th class="text-left font-bold text-gray-700 py-3 px-4 w-24 hidden sm:table-cell">Kod</th>
-       <th class="w-20 px-3 py-3 text-center align-middle font-bold">S1</th>
+     <thead class="sticky top-0 bg-gray-100 z-10">
+
+<tr class="bg-gray-100 border-b-2 border-gray-300">
+
+<th class="w-40 px-4 py-3 text-center align-middle font-bold">
+Nama Sekolah
+</th>
+
+<th class="w-24 px-4 py-3 text-center align-middle font-bold hidden sm:table-cell">
+Kod
+</th>
+
+<th class="w-20 px-3 py-3 text-center align-middle font-bold">
+S1
+</th>
 
 <th class="w-20 px-3 py-3 text-center align-middle font-bold hidden md:table-cell">
 S2
@@ -326,8 +369,10 @@ Status
 <th class="w-28 px-3 py-3 text-center align-middle font-bold">
 Aksi
 </th>
-        </tr>
-       </thead>
+
+</tr>
+
+</thead>
        <tbody id="assessments-table">
         <tr>
          <td colspan="9" class="text-center py-8 text-gray-500 text-sm">
@@ -436,12 +481,101 @@ Aksi
       </div>
       <div class="border-b border-gray-200 pb-5 sm:pb-6">
        <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian SKPM (268 Item)</h3>
-       <!-- TAB STANDARD DALAM MODAL -->
-<div class="flex gap-2 mb-4">
-  <button type="button" onclick="renderStandard(1)" class="tab-btn">Standard 1</button>
-  <button type="button" onclick="renderStandard(2)" class="tab-btn">Standard 2</button>
-  <button type="button" onclick="renderStandard(3)" class="tab-btn">Standard 3</button>
-  <button type="button" onclick="renderStandard(4)" class="tab-btn">Standard 4</button>
+       <!-- TAB STANDARD -->
+<div class="flex gap-2 mb-4 flex-wrap">
+
+  <button type="button"
+    onclick="renderStandard(1);showInstrumen(1)"
+    class="tab-btn">
+    Standard 1
+  </button>
+
+  <button type="button"
+    onclick="renderStandard(2);showInstrumen(2)"
+    class="tab-btn">
+    Standard 2
+  </button>
+
+  <button type="button"
+    onclick="renderStandard(3);showInstrumen(3)"
+    class="tab-btn">
+    Standard 3
+  </button>
+
+  <button type="button"
+    onclick="renderStandard(4);showInstrumen(4)"
+    class="tab-btn">
+    Standard 4
+  </button>
+
+</div>
+
+<!-- PANEL INSTRUMEN -->
+<div id="instrumen-panel"
+  class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-5">
+
+  <div class="flex items-center justify-between mb-3">
+
+    <div>
+      <h3 class="font-bold text-amber-900">
+        📘 Instrumen Penilai
+      </h3>
+
+      <p id="instrumen-title"
+        class="text-sm text-amber-700">
+        Standard 1
+      </p>
+    </div>
+
+    <button type="button"
+      onclick="toggleRubrik()"
+      class="bg-amber-600 hover:bg-amber-700 text-white text-sm px-3 py-2 rounded-lg">
+      Rubrik Skor 0–4
+    </button>
+
+  </div>
+
+  <!-- RUBRIK MINI -->
+  <div id="rubrik-box"
+    class="hidden bg-white border border-amber-200 rounded-xl p-3 mb-4 text-sm">
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+
+      <div class="bg-red-50 p-2 rounded-lg">
+        <b>0</b><br>
+        Tiada bukti
+      </div>
+
+      <div class="bg-orange-50 p-2 rounded-lg">
+        <b>1</b><br>
+        Sangat minimum
+      </div>
+
+      <div class="bg-yellow-50 p-2 rounded-lg">
+        <b>2</b><br>
+        Sebahagian
+      </div>
+
+      <div class="bg-blue-50 p-2 rounded-lg">
+        <b>3</b><br>
+        Baik
+      </div>
+
+      <div class="bg-green-50 p-2 rounded-lg">
+        <b>4</b><br>
+        Lengkap & sistematik
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- KANDUNGAN INSTRUMEN -->
+  <div id="instrumen-content"
+    class="bg-white rounded-xl border p-4 max-h-[350px] overflow-y-auto text-sm leading-relaxed">
+
+  </div>
+
 </div>
 
 <div id="standardContainer"></div>
@@ -455,10 +589,36 @@ Aksi
         </div><span id="overall-score-display" class="text-2xl sm:text-3xl font-bold text-blue-900 flex-shrink-0">2.0</span>
        </div>
       </div>
+<div class="border-t border-gray-200 pt-5 sm:pt-6">
+
+  <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4">
+    Gambar Pemantauan
+  </h3>
+
+ <input
+  type="file"
+  id="form-images"
+  accept="image/*"
+  multiple
+  class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+>
+
+<div
+  id="preview-container"
+  class="grid grid-cols-2 gap-4 mt-4">
+</div>
+
+  <img
+    id="preview-image"
+    class="mt-4 rounded-xl border hidden max-h-64 object-cover"
+  >
+
+</div>
       <div class="border-t border-gray-200 pt-5 sm:pt-6">
        <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Catatan &amp; Tindakan Susulan</h3>
        <div class="mb-4"><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Catatan Umum Penilaian</label> <textarea id="form-notes" rows="3" placeholder="Masukkan catatan umum atau pemerhatian penting..." class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"></textarea>
        </div>
+
        <div><label class="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Tindakan Susulan</label> <textarea id="form-action" rows="2" placeholder="Tindakan atau rekomendasi untuk peningkatan..." class="w-full px-3 sm:px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"></textarea>
        </div>
       </div><input type="hidden" id="form-id">
@@ -486,7 +646,10 @@ Aksi
     class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-green-600 text-white rounded-lg font-medium text-sm hover:bg-green-700 transition">
     📄 Jana PDF
   </button>
-
+<button onclick="generateOnePageReport()"
+  class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-indigo-600 text-white rounded-lg font-medium text-sm hover:bg-indigo-700 transition">
+  📋 One Page Report
+</button>
   <button onclick="closeReportModal()"
     class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition">
     Tutup
@@ -507,7 +670,7 @@ const USERS = [
 
 let currentUser = null;
 
-const API_URL = "https://script.google.com/macros/s/AKfycbyKI72XW_ynGm_2gp7WMAEWO6NbG5ckI1fVVZymGrAKLnZJRUa4W5Gx3TGxDeALmuJ6xA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwKsDU6sWtNpsg-vK-FEbcE9-FohkGs6lpWlmqYW4-xp5pLGiHg3l7gGcYdTBtuj8bSLw/exec";
 const LOGO_PPD = "https://i.imgur.com/4EGUuTx.png";
 const SCHOOL_LIST = [
 ["XBA5101","SEKOLAH KEBANGSAAN PEKAN KOTA MARUDU"],
@@ -577,6 +740,7 @@ async function loadFromSheet() {
     });
 
     return {
+
       ...clean,
 nama_sekolah:
   clean.nama_sekolah ||
@@ -596,7 +760,10 @@ kod_sekolah:
       skor_standard_3: parseFloat(clean.skor_standard_3) || 0,
       skor_standard_4: parseFloat(clean.skor_standard_4) || 0,
       skor_keseluruhan: parseFloat(clean.skor_keseluruhan) || 0,
-      item_scores: clean.item_scores || "{}"
+      item_scores: clean.item_scores || "{}",
+images: clean.images
+  ? JSON.parse(clean.images)
+  : [],
     };
   });
 
@@ -1441,10 +1608,18 @@ setTimeout(updateOverallScore, 0);
     showToast("Akses ditolak! Admin sahaja.");
     return;
   }
-  const record = allRecords.find(r => r.__backendId === backendId);
-  if (!record) return;
+  const record =
+  allRecords.find(
+    r => r.__backendId === backendId
+  );
 
-  currentEditId = backendId;
+if (!record) return;
+
+reportImages = record.images || [];
+
+renderImagePreview();
+
+currentEditId = backendId;
 
   document.getElementById('modal-title').textContent = 'Edit Penilaian SKPM';
   document.getElementById('form-school-name').value = record.school_name || '';
@@ -1548,7 +1723,9 @@ const fieldId = `item_${item.std}_${kodOnly}_${item.aspek}`.replace(/\./g,'_');
   status: getStatus(scores.overall),
   catatan_umum: document.getElementById('form-notes').value.trim() || 'Tiada',
   tindakan_susulan: document.getElementById('form-action').value.trim() || 'Tiada',
-  item_scores: JSON.stringify(fullItemScores)
+  item_scores: JSON.stringify(fullItemScores),
+images: JSON.stringify(reportImages),
+
 };
 
 
@@ -1810,7 +1987,33 @@ function downloadPDF() {
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(element).save();
+  html2pdf()
+  .set({
+    margin: 5,
+    filename: 'Laporan_SKPM.pdf',
+
+    image: {
+      type: 'jpeg',
+      quality: 0.8
+    },
+
+    html2canvas: {
+      scale: 0.7,
+      useCORS: true
+    },
+
+    jsPDF: {
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait'
+    },
+
+    pagebreak: {
+      mode: ['avoid-all']
+    }
+  })
+  .from(element)
+  .save();
 }
 function login() {
   const username = document.getElementById('login-username').value;
@@ -2049,6 +2252,541 @@ function updateRanking() {
   `).join("");
 
 }
-  </script>
+const instrumenData = {
+
+  1: `
+    <h4 class="font-bold text-lg mb-3">
+      Standard 1 : Kepemimpinan
+    </h4>
+
+    <div class="space-y-3">
+
+      <div class="border rounded-lg p-3">
+        <b>1.1.1</b><br>
+        PGB menetapkan hala tuju sekolah secara terancang.
+      </div>
+
+      <div class="border rounded-lg p-3">
+        <b>1.1.2</b><br>
+        PGB mengetuai penyediaan RPS secara sistematik.
+      </div>
+
+      <div class="border rounded-lg p-3">
+        <b>1.1.3</b><br>
+        PGB mengetuai pemantauan pengoperasian sekolah.
+      </div>
+
+    </div>
+  `,
+
+  2: `
+    <h4 class="font-bold text-lg mb-3">
+      Standard 2 : Pengurusan Organisasi
+    </h4>
+
+    <p>
+      Pengurusan organisasi sekolah secara sistematik dan terancang.
+    </p>
+  `,
+
+  3: `
+    <h4 class="font-bold text-lg mb-3">
+      Standard 3 : Kurikulum, Kokurikulum & HEM
+    </h4>
+
+    <p>
+      Pengurusan kurikulum, kokurikulum dan HEM secara berkesan.
+    </p>
+  `,
+
+  4: `
+    <h4 class="font-bold text-lg mb-3">
+      Standard 4 : PdPc
+    </h4>
+
+    <p>
+      Guru bertindak sebagai perancang, pembimbing dan penilai.
+    </p>
+  `
+};
+
+function showInstrumen(std){
+
+  document.getElementById("instrumen-title")
+    .innerText = `Standard ${std}`;
+
+  document.getElementById("instrumen-content")
+    .innerHTML = instrumenData[std];
+
+}
+
+function toggleRubrik(){
+
+  document
+    .getElementById("rubrik-box")
+    .classList.toggle("hidden");
+}
+function exportExcel(){
+
+  if(!allRecords || allRecords.length === 0){
+    showToast("Tiada data untuk export");
+    return;
+  }
+
+  const excelData = allRecords.map((r,index)=>({
+
+    Bil: index + 1,
+
+    "Nama Sekolah": r.nama_sekolah || "",
+
+    "Kod Sekolah": r.kod_sekolah || "",
+
+    "S1": Number(r.skor_standard_1 || 0).toFixed(2),
+
+    "S2": Number(r.skor_standard_2 || 0).toFixed(2),
+
+    "S3": Number(r.skor_standard_3 || 0).toFixed(2),
+
+    "S4": Number(r.skor_standard_4 || 0).toFixed(2),
+
+    "Skor Keseluruhan":
+      Number(r.skor_keseluruhan || 0).toFixed(2),
+
+    "Status":
+      getStatusText(r.skor_keseluruhan || 0),
+
+    "Tarikh":
+      r.tarikh || "",
+
+    "Penilai":
+      r.penilai || ""
+
+  }));
+
+  const worksheet =
+    XLSX.utils.json_to_sheet(excelData);
+
+  const workbook =
+    XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    worksheet,
+    "Rekod SKPM"
+  );
+
+  XLSX.writeFile(
+    workbook,
+    "Rekod_Penilaian_SKPM.xlsx"
+  );
+
+  showToast("Excel berjaya dijana");
+
+}
+function getStatusText(score){
+
+  if(score >= 3.5) return "Cemerlang";
+
+  if(score >= 2.5) return "Baik";
+
+  if(score >= 1.5) return "Sederhana";
+
+  return "Lemah";
+
+}
+function generateOnePageReport(){
+
+  const sekolah =
+    document.getElementById("form-school-name").value;
+
+  const tarikh =
+    document.getElementById("form-date").value;
+
+  const penilai =
+    document.getElementById("form-evaluator").value;
+
+  const catatan =
+    document.getElementById("form-notes").value;
+
+  const tindakan =
+    document.getElementById("form-action").value;
+
+  const skor =
+    document.getElementById("overall-score-display").innerText;
+
+let gambarHTML = "";
+
+if(reportImages.length > 0){
+
+  gambarHTML = `
+
+    <div style="margin-bottom:14px;">
+
+      <!-- HEADER -->
+      <div style="
+        background:#7c3aed;
+        color:white;
+        padding:8px 12px;
+        border-radius:10px;
+        font-size:13px;
+        font-weight:700;
+        margin-bottom:8px;
+      ">
+        Gambar Pemantauan
+      </div>
+
+      <!-- BOX GAMBAR -->
+      <div style="
+        border:1px solid #d1d5db;
+        border-radius:12px;
+        padding:10px;
+        background:white;
+      ">
+
+        <div style="
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:8px;
+        ">
+  `;
+
+  reportImages.forEach(img => {
+
+    gambarHTML += `
+
+      <div style="
+        border:1px solid #cbd5e1;
+        border-radius:8px;
+        overflow:hidden;
+        background:#f8fafc;
+        height:120px;
+      ">
+
+        <img
+          src="${img}"
+          style="
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+          "
+        >
+
+      </div>
+
+    `;
+
+  });
+
+  gambarHTML += `
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}else{
+
+  gambarHTML = `
+
+    <div style="margin-bottom:14px;">
+
+      <!-- HEADER -->
+      <div style="
+        background:#7c3aed;
+        color:white;
+        padding:8px 12px;
+        border-radius:10px;
+        font-size:13px;
+        font-weight:700;
+        margin-bottom:8px;
+      ">
+        Gambar Pemantauan
+      </div>
+
+      <!-- BOX -->
+      <div style="
+        border:1px solid #d1d5db;
+        border-radius:12px;
+        padding:30px;
+        text-align:center;
+        color:#64748b;
+        font-size:12px;
+        background:#f8fafc;
+      ">
+        Tiada gambar dimuat naik
+      </div>
+
+    </div>
+
+  `;
+}const reportHTML = `
+
+ <div style="
+  font-family:Poppins,sans-serif;
+  background:white;
+  padding:18px;
+  color:#111827;
+  line-height:1.35;
+  font-size:12px;
+  width:100%;
+">
+
+    <div style="
+  text-align:center;
+  margin-top:-20px;
+  margin-bottom:8px;
+">
+
+<img
+  src="${LOGO_PPD}"
+  style="
+    width:120px;
+    height:120px;
+    display:block;
+    margin:-20px auto -10px auto;
+    object-fit:contain;
+  "
+>
+  <div style="
+    font-size:18px;
+    font-weight:700;
+    color:#111827;
+    margin-bottom:2px;
+  ">
+    ONE PAGE REPORT
+  </div>
+
+  <div style="
+   font-size:20px;
+  font-weight:700;
+  margin-top:-10px;
+  margin-bottom:0;
+  ">
+    Sistem Penilaian SKPM Kualiti@Sekolah
+  </div>
+
+  <div style="
+    font-size:10px;
+    color:#6b7280;
+  ">
+    PEJABAT PENDIDIKAN DAERAH KOTA MARUDU
+  </div>
+
+</div>
+
+    <table style="
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:20px;
+      font-size:14px;
+    ">
+
+      <tr>
+        <td style="padding:8px;font-weight:600;width:220px;">
+          Nama Sekolah
+        </td>
+        <td>${sekolah}</td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;font-weight:600;">
+          Tarikh Pemantauan
+        </td>
+        <td>${tarikh}</td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;font-weight:600;">
+          Nama Penilai
+        </td>
+        <td>${penilai}</td>
+      </tr>
+
+      <tr>
+        <td style="padding:8px;font-weight:600;">
+          Skor Keseluruhan
+        </td>
+        <td>${skor}</td>
+      </tr>
+
+    </table>
+
+    ${gambarHTML}
+
+    <div style="margin-bottom:18px;">
+
+      <h3 style="
+        background:#1d4ed8;
+        color:white;
+        padding:8px 12px;
+        border-radius:8px;
+        font-size:15px;
+      ">
+        Objektif
+      </h3>
+
+      <div style="
+        border:1px solid #d1d5db;
+        padding:10px;
+        border-radius:8px;
+        min-height:60px;
+      ">
+        Menilai tahap pelaksanaan SKPM
+        bagi memastikan pengoperasian sekolah
+        berada pada tahap berkualiti.
+      </div>
+
+    </div>
+
+    <div style="margin-bottom:18px;">
+
+      <h3 style="
+        background:#059669;
+        color:white;
+        padding:8px 12px;
+        border-radius:8px;
+        font-size:15px;
+      ">
+        Catatan Penilaian
+      </h3>
+
+      <div style="
+        border:1px solid #d1d5db;
+        padding:10px;
+        border-radius:8px;
+        min-height:60px;
+      ">
+        ${catatan || "-"}
+      </div>
+
+    </div>
+
+    <div style="margin-bottom:18px;">
+
+      <h3 style="
+        background:#d97706;
+        color:white;
+        padding:8px 12px;
+        border-radius:8px;
+        font-size:15px;
+      ">
+        Penambahbaikan / Tindakan Susulan
+      </h3>
+
+      <div style="
+        border:1px solid #d1d5db;
+        padding:14px;
+        border-radius:px;
+        min-height:60px;
+      ">
+        ${tindakan || "-"}
+      </div>
+
+    </div>
+
+    <div style="
+      margin-top:40px;
+      display:flex;
+      justify-content:space-between;
+      gap:40px;
+    ">
+
+      <div style="width:45%;">
+
+        <div style="
+          border-top:1px solid #111827;
+          padding-top:8px;
+          margin-top:15px;
+        ">
+          Disediakan Oleh:
+          <br><br>
+          ${penilai}
+        </div>
+
+      </div>
+
+         </div>
+
+  </div>
+
+  `;
+
+  document.getElementById("report-content").innerHTML =
+    reportHTML;
+
+  document
+    .getElementById("report-modal")
+    .classList.remove("hidden");
+
+}
+let reportImages = [];
+
+document
+  .getElementById("form-images")
+  .addEventListener("change", function(e){
+
+    const files = Array.from(e.target.files).slice(0,4);
+
+    reportImages = [];
+
+    const container =
+      document.getElementById("preview-container");
+
+    container.innerHTML = "";
+
+    files.forEach(file => {
+
+      const reader = new FileReader();
+
+      reader.onload = function(evt){
+
+        reportImages.push(evt.target.result);
+
+        const img =
+          document.createElement("img");
+
+        img.src = evt.target.result;
+
+        img.className =
+          "rounded-xl border h-40 w-full object-cover";
+
+        container.appendChild(img);
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+}); 
+function renderImagePreview(){
+
+  const container =
+    document.getElementById("preview-container");
+
+  if(!container) return;
+
+  container.innerHTML = "";
+
+  reportImages.forEach(img => {
+
+    const image =
+      document.createElement("img");
+
+    image.src = img;
+
+    image.className =
+      "rounded-xl border h-40 w-full object-cover";
+
+    container.appendChild(image);
+
+  });
+
+}
+</script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
