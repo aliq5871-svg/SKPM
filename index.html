@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistem Penilaian SKPM PPD (268 Item) </title>
+  <title>Sistem Penilaian Bimbingan Sekolah Sepadu (BiSS) </title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
@@ -219,7 +219,7 @@ table th{
  <body class="h-full">
 <div id="login-screen" class="h-full flex items-center justify-center gradient-bg">
   <div class="bg-white p-8 rounded-xl shadow-lg w-80">
-    <h2 class="text-xl font-bold mb-4 text-center">Login Sistem SKPM</h2>
+    <h2 class="text-xl font-bold mb-4 text-center">Login Sistem(BiSS)</h2>
 
     <input id="login-username" placeholder="Username"
       class="w-full mb-3 px-3 py-2 border rounded-lg">
@@ -244,8 +244,8 @@ table th{
        <img id="logo-ppd" class="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 object-contain bg-white rounded-xl p-1 shadow-lg flex-shrink-0">
 
        <div class="min-w-0">
-        <h1 id="ppd-name" class="text-lg sm:text-xl md:text-2xl font-bold text-white truncate">SISTEM PENILAIAN SKPM@KUALITI SEKOLAH PPD KOTA MARUDU</h1>
-        <p class="text-white/70 text-xs sm:text-sm truncate">SK@S SKPM Kualiti@sekolah</p>
+        <h1 id="ppd-name" class="text-lg sm:text-xl md:text-2xl font-bold text-white truncate">SISTEM BIMBINGAN SEKOLAH SEPADU(BiSS) PPD KOTA MARUDU</h1>
+        <p class="text-white/70 text-xs sm:text-sm truncate">SKPM Kualiti@sekolah</p>
        </div>
       </div>
 <div class="flex items-center gap-2">
@@ -446,6 +446,29 @@ Aksi
       </div>
      </div>
     </div>
+<footer class="mt-10 pt-6 border-t border-white/20 text-center">
+
+  <div class="text-white/70 text-sm">
+    📞 Bantuan & Sokongan Sistem
+  </div>
+
+  <div class="font-bold text-white mt-2 text-base">
+    Julian Bin Kadim
+  </div>
+
+  <div class="text-white/80 text-sm">
+    Pembangun Sistem BiSS
+  </div>
+
+  <div class="text-white/70 text-sm">
+    PPD Kota Marudu
+  </div>
+
+  <div class="text-white/50 text-xs mt-2">
+    Jika menghadapi sebarang kesulitan atau ralat sistem, sila hubungi pentadbir sistem.
+  </div>
+
+</footer>
    </main>
    <div id="modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl md:rounded-2xl rounded-none h-full md:h-auto max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
@@ -480,7 +503,7 @@ Aksi
        </div>
       </div>
       <div class="border-b border-gray-200 pb-5 sm:pb-6">
-       <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian SKPM (268 Item)</h3>
+       <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian Bimbingan Sekolah Sepadu(BiSS)</h3>
        <!-- TAB STANDARD -->
 <div class="flex gap-2 mb-4 flex-wrap">
 
@@ -665,7 +688,7 @@ Aksi
   <script>
 const USERS = [
   { username: "admin", password: "1234", role: "admin" },
-  { username: "user", password: "1234", role: "user" }
+  { username: "user", password: "1234", role: "sekolah" }
 ];
 
 let currentUser = null;
@@ -1691,7 +1714,7 @@ function updateStandardMiniChart() {
   }
   currentEditId = null;
 
-  document.getElementById('modal-title').textContent = 'Penilaian SKPM Sekolah Baru';
+  document.getElementById('modal-title').textContent = 'Penilaian Bimbingan Sekolah Sepadu(BiSS) Baru';
   document.getElementById('modal').classList.remove('hidden');
 
   document.getElementById('form-school-name').value = '';
@@ -1912,7 +1935,7 @@ function renderStdBar(label, value){
        " />
 
   <div style="font-size:22px;font-weight:800;letter-spacing:1px">
-    LAPORAN PENILAIAN SKPM KUALITI@SEKOLAH
+    LAPORAN PENILAIAN BIMBINGAN SEKOLAH SEPADU(BiSS)
   </div>
 
   <div style="font-size:13px;color:#555;margin-top:4px">
@@ -2687,7 +2710,7 @@ if(reportImages.length > 0){
   margin-top:-10px;
   margin-bottom:0;
   ">
-    Sistem Penilaian SKPM Kualiti@Sekolah
+    Sistem Bimbingan Sekolah Sepadu(BiSS)
   </div>
 
   <div style="
@@ -2914,5 +2937,6 @@ window.addEventListener("load", () => {
   checkLogin();
 });
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
 </html>
