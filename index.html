@@ -217,24 +217,301 @@ table th{
   <style>@view-transition { navigation: auto; }</style>
  </head>
  <body class="h-full">
-<div id="login-screen" class="h-full flex items-center justify-center gradient-bg">
-  <div class="bg-white p-8 rounded-xl shadow-lg w-80">
-    <h2 class="text-xl font-bold mb-4 text-center">Login Sistem(BiSS)</h2>
+<<!-- ================= LOGIN SCREEN ================= -->
 
-    <input id="login-username" placeholder="Username"
-      class="w-full mb-3 px-3 py-2 border rounded-lg">
+<div id="login-screen" class="min-h-screen bg-gray-100 py-6">
 
-    <input id="login-password" type="password" placeholder="Password"
-      class="w-full mb-4 px-3 py-2 border rounded-lg">
+<div class="max-w-6xl mx-auto">
 
-    <button onclick="login()"
-      class="w-full bg-blue-600 text-white py-2 rounded-lg">
-      Login
-    </button>
+<!-- HEADER -->
 
-    <p id="login-error" class="text-red-500 text-sm mt-2 text-center"></p>
-  </div>
+<div class="flex items-center gap-6 mb-4">
+
+<img
+src="https://i.imgur.com/4EGUuTx.png"
+class="w-40">
+
+<div>
+
+<h1 class="text-4xl font-bold text-blue-900">
+
+PEJABAT PENDIDIKAN DAERAH KOTA MARUDU
+
+</h1>
+
+<h2 class="text-2xl font-bold text-blue-700 mt-1">
+
+SISTEM BIMBINGAN SEKOLAH SEPADU (BiSS)
+
+</h2>
+
+<p class="text-blue-700 font-semibold">
+
+SEKTOR PENGURUSAN SEKOLAH
+
+</p>
+
 </div>
+
+</div>
+
+<!-- BANNER -->
+
+<div class="rounded-xl overflow-hidden shadow-lg">
+
+<img
+id="bannerSlider"
+src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1800"
+class="w-full h-80 object-cover">
+
+</div>
+<div class="bg-blue-700 rounded-xl shadow-lg mt-5 overflow-hidden">
+
+<marquee
+scrollamount="7"
+class="py-4 text-white text-xl font-bold">
+
+🏫 SELAMAT DATANG KE SISTEM BiSS 2026 ⭐
+Sistem Bimbingan Sekolah Sepadu (BiSS) ⭐
+Pejabat Pendidikan Daerah Kota Marudu ⭐
+Marudu Hebat • Drive To Excellent ⭐
+Pemantauan • Penilaian • Intervensi • Kualiti ⭐
+
+</marquee>
+
+</div>
+<!-- ================= CONTENT ================= -->
+
+<div class="max-w-7xl mx-auto mt-6">
+
+<div class="flex gap-6 items-start">
+
+    <!-- MENU KIRI -->
+
+    <div style="width:250px;flex-shrink:0;">
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+
+            <div class="bg-blue-800 text-white text-center py-4 text-xl font-bold">
+
+                📂 MENU UTAMA
+
+            </div>
+
+            <a href="https://drive.google.com/file/d/1CdGPGaYRrCDCU78fMpcQfcoE_J2R5Fo3/view?usp=sharing"
+               target="_blank"
+               class="flex items-center gap-3 p-4 hover:bg-blue-50 border-b">
+
+                <span class="text-2xl">📘</span>
+
+                <div>
+
+                    <div class="font-bold">
+                        Dokumen SKPM
+                    </div>
+
+                    <div class="text-xs text-gray-500">
+                        SKPM@Kualiti Sekolah
+
+                    </div>
+
+                </div>
+
+            </a>
+
+            <a href="https://drive.google.com/file/d/1BdWiSPA-96n7pOpRDb2GfBx1GP2b2_gu/view?usp=sharing"
+               target="_blank"
+               class="flex items-center gap-3 p-4 hover:bg-green-50 border-b">
+
+                <span class="text-2xl">📋</span>
+
+                <div>
+
+                    <div class="font-bold">
+                        Instrumen Penilaian Manual
+                    </div>
+
+                    <div class="text-xs text-gray-500">
+                        Borang Penilaian pdf
+                    </div>
+
+                </div>
+
+            </a>
+
+            <button
+    onclick="showAnnouncement()"
+    class="w-full flex items-center gap-3 p-4 hover:bg-yellow-50 border-b">
+
+    <span class="text-2xl">📢</span>
+
+    <div class="text-left">
+        <div class="font-bold">Pengumuman</div>
+        <div class="text-xs text-gray-500">
+            Hebahan terkini
+        </div>
+    </div>
+
+</button>
+
+            <a href="mailto:ppdkotamarudu@moe.gov.my"
+               class="flex items-center gap-3 p-4 hover:bg-red-50 border-b">
+
+                <span class="text-2xl">📞</span>
+
+                <div>
+
+                    <div class="font-bold">
+                        Hubungi Kami
+                    </div>
+
+                    <div class="text-xs text-gray-500">
+                        ppdkotamarudu@moe.gov.my
+                    </div>
+
+                </div>
+
+            </a>
+
+            <a href="https://drive.google.com/file/d/1R718T_voQgQuZjKPqbgEXUXFq3i4et9y/view?usp=sharing"
+               target="_blank"
+
+                onclick="showAboutBiSS()"
+                class="w-full flex items-center gap-3 p-4 hover:bg-gray-100">
+
+                <span class="text-2xl">ℹ️</span>
+
+                <div class="text-left">
+
+                    <div class="font-bold">
+                        Risalah BiSS
+                    </div>
+
+                    <div class="text-xs text-gray-500">
+                        Versi 2026
+                    </div>
+
+                </div>
+  </a>
+<button
+    onclick="showScST()"
+    class="w-full flex items-center gap-3 p-4 hover:bg-cyan-50 border-t">
+
+    <span class="text-2xl">🏫</span>
+
+    <div class="text-left">
+        <div class="font-bold">
+            School Support Tracker (ScST)
+        </div>
+        <div class="text-xs text-gray-500">
+            Pautan Semua Sekolah
+        </div>
+    </div>
+
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- KANAN -->
+
+    <div class="flex-1">
+
+        <div class="bg-white rounded-xl shadow overflow-hidden">
+
+            <img
+            src="https://i.imgur.com/4XJ0zJW.png?w=1200"
+            class="w-full h-80 object-cover">
+
+            <div class="p-4 text-gray-600">
+
+                Paparan ini adalah untuk kegunaan
+                <b>Pejabat Pendidikan Daerah Kota Marudu</b>.
+
+            </div>
+
+        </div>
+
+        <div class="bg-white rounded-xl shadow mt-5">
+
+            <div class="bg-gray-100 border-b px-5 py-3 font-bold">
+
+                LOG MASUK
+
+            </div>
+
+            <div class="p-6">
+
+                <label class="font-semibold">
+                    Username
+                </label>
+
+                <input
+                id="login-username"
+                class="w-full border rounded-lg p-3 mt-2 mb-4">
+
+                <label class="font-semibold">
+                    Password
+                </label>
+
+                <input
+                id="login-password"
+                type="password"
+                class="w-full border rounded-lg p-3 mt-2">
+
+                <div class="mt-4">
+
+                    <label>
+
+                        <input type="checkbox">
+
+                        Ingat Saya
+
+                    </label>
+
+                </div>
+
+                <button
+                onclick="login()"
+                class="w-full bg-blue-700 hover:bg-blue-800 text-white rounded-lg p-3 mt-5 font-bold">
+
+                    MASUK KE SISTEM
+
+                </button>
+
+                <div class="text-center mt-5">
+
+                    <span
+                    id="clock"
+                    class="font-bold text-blue-700">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="text-center text-gray-600 text-sm mt-8">
+
+© Sistem BiSS 2026 • Unit Menengah & Tingkatan Enam • PPD Kota Marudu
+
+</div>
+
+</div>
+
+</div>
+
   <div id="app" class="h-full w-full gradient-bg" style="display:none;">
   
 <header class="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-40 px-1">
@@ -343,15 +620,27 @@ table th{
 </div>
     </div>
     <div class="bg-white card-modern rounded-xl overflow-hidden mb-6 sm:mb-8">
-     <div class="px-4 sm:px-6 py-3 sm:py-5 border-b border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+     <div class="px-4 sm:px-6 py-3 sm:py-5 border-b border-gray-200 flex flex-wrap items-center justify-between gap-3">
+
+<div class="flex flex-wrap gap-2">
+
 <button onclick="exportExcel()"
-  class="bg-green-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-700 transition flex items-center gap-2">
-  📥 Export Excel Semua Rekod
+class="bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-green-700">
+📥 Export Excel
 </button>
-      <h2 class="text-base sm:text-lg font-bold text-gray-900">Rekod Penilaian</h2><button onclick="showAddModal()" class="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700 transition flex items-center justify-center gap-2">
-       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-       </svg> Penilaian Baru </button>
-     </div>
+
+</div>
+
+<h2 class="text-lg font-bold text-gray-900">
+Rekod Penilaian
+</h2>
+
+<button onclick="showAddModal()"
+class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium text-sm hover:bg-blue-700">
+➕ Penilaian Baru
+</button>
+
+</div>
      <div class="overflow-x-auto max-h-[420px] overflow-y-auto border-t mobile-card-table">
   <table class="w-full text-sm table-modern table-fixed">
 
@@ -432,21 +721,18 @@ Aksi
       📅 Jadual Lawatan Pemantauan
     </h3>
 
-    <button
-      onclick="showAddVisitModal()"
-      class="bg-blue-600 text-white px-3 py-2 rounded-lg text-sm">
-      + Tambah
-    </button>
-
+    
   </div>
 
-  <div id="visit-schedule" class="space-y-2">
+ <div
+  id="visit-schedule"
+  class="space-y-2 max-h-[420px] overflow-y-auto pr-2">
 
-    <div class="text-gray-500 text-sm">
-      Tiada jadual direkodkan
-    </div>
-
+  <div class="text-gray-500 text-sm">
+    Tiada jadual direkodkan
   </div>
+
+</div>
 
 </div>
 <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-5 mb-6">
@@ -557,6 +843,7 @@ Unit Menengah dan Tingkatan 6
       </div>
       <div class="border-b border-gray-200 pb-5 sm:pb-6">
        <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">Borang Penilaian Bimbingan Sekolah Sepadu(BiSS)</h3>
+       
        <!-- TAB STANDARD -->
 <div class="flex gap-2 mb-4 flex-wrap">
 
@@ -712,6 +999,7 @@ Unit Menengah dan Tingkatan 6
        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
        </svg></button>
      </div>
+
      <div id="print-area">
   <div id="report-content" class="p-4 sm:p-6"></div>
 </div>
@@ -738,16 +1026,149 @@ Unit Menengah dan Tingkatan 6
     </div>
    </div>
   </div>
+<div id="report-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
+     <div class="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+      <h2 id="report-modal-title" class="text-lg sm:text-xl font-bold text-gray-900">Laporan Penilaian SKPM</h2><button onclick="closeReportModal()" class="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition flex-shrink-0">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+
+     <div id="print-area">
+  <div id="report-content" class="p-4 sm:p-6"></div>
+</div>
+
+   <div class="flex gap-2 sm:gap-3 p-4 sm:p-6 border-t border-gray-200 no-print">
+
+  <button onclick="downloadPDF()"
+    class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-green-600 text-white rounded-lg font-medium text-sm hover:bg-green-700 transition">
+    📄 Jana PDF
+  </button>
+<button onclick="generateOnePageReport()"
+  class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-indigo-600 text-white rounded-lg font-medium text-sm hover:bg-indigo-700 transition">
+  📋 One Page Report
+</button>
+  <button onclick="closeReportModal()"
+    class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition">
+    Tutup
+  </button>
+
+</div>
+
+
+     </div>
+    </div>
+   </div>
+  </div>
+<div id="scstModal"
+class="fixed inset-0 bg-black/60 hidden justify-center items-center z-50">
+
+<div class="bg-white rounded-2xl shadow-xl w-[900px] max-w-[95%] max-h-[90vh] overflow-hidden">
+
+<div class="bg-cyan-700 text-white px-6 py-4 flex justify-between items-center">
+
+<h2 class="text-xl font-bold">
+🏫 School Support Tracker (ScST)
+</h2>
+
+<button onclick="closeScST()" class="text-2xl">
+✖
+</button>
+
+</div>
+
+<div class="p-5 overflow-y-auto max-h-[75vh]">
+
+<div class="grid md:grid-cols-2 gap-3">
+
+<div id="scstList"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
   <script>
 const USERS = [
-  { username: "admin", password: "1234", role: "admin" },
+  { username: "ppdkm", password: "661205", role: "admin" },
   { username: "user", password: "1234", role: "sekolah" }
 ];
 
 let currentUser = null;
 
-const API_URL = "https://script.google.com/macros/s/AKfycbxl53D7t9CJXU2mDeUGZW9f5thjwsQBvRBOqmDHxMjAQAH9gmUEbyy8SWMcRQWHQCyseg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyqIpkcIxdhU6rSMDWRdaNDytvkSgx2W7_kfb3WhaHpcMgcTs-1sbvaHcOFae0zexMypA/exec";
 const LOGO_PPD = "https://i.imgur.com/4EGUuTx.png";
+const scstLinks = [
+
+["SK PEKAN KOTA MARUDU","https://dtpcare.com/scst/index.php?k=XBA5101"],
+["SK BENGKONGAN","https://dtpcare.com/scst/index.php?k=XBA5102"],
+["SK LANGKON","https://dtpcare.com/scst/index.php?k=XBA5103"],
+["SK MARAK-PARAK","https://dtpcare.com/scst/index.php?k=XBA5104"],
+["SK MASALOG","https://dtpcare.com/scst/index.php?k=XBA5105"],
+["SK POPOK","https://dtpcare.com/scst/index.php?k=XBA5106"],
+["SK SAMPIR","https://dtpcare.com/scst/index.php?k=XBA5107"],
+["SK SAMPARITA","https://dtpcare.com/scst/index.php?k=XBA5108"],
+["SK SIMPANGAN","https://dtpcare.com/scst/index.php?k=XBA5109"],
+["SK TAGAROH","https://dtpcare.com/scst/index.php?k=XBA5110"],
+["SK TANDEK","https://dtpcare.com/scst/index.php?k=XBA5111"],
+["SK TANJUNG BATU","https://dtpcare.com/scst/index.php?k=XBA5112"],
+["SK TARITIPAN","https://dtpcare.com/scst/index.php?k=XBA5113"],
+["SK TIGAMAN","https://dtpcare.com/scst/index.php?k=XBA5114"],
+["SK TIMBANG BATU","https://dtpcare.com/scst/index.php?k=XBA5115"],
+["SK SUNSUI","https://dtpcare.com/scst/index.php?k=XBA5116"],
+["SK ONGKILAN","https://dtpcare.com/scst/index.php?k=XBA5117"],
+["SK TEMUNO TERINGAI DARAT","https://dtpcare.com/scst/index.php?k=XBA5118"],
+["SK MELANGKAP","https://dtpcare.com/scst/index.php?k=XBA5119"],
+["SK TAGIBANG","https://dtpcare.com/scst/index.php?k=XBA5120"],
+["SK MANGARIS","https://dtpcare.com/scst/index.php?k=XBA5121"],
+["SK PANAITAN","https://dtpcare.com/scst/index.php?k=XBA5122"],
+["SK TUMUNDA SALIMANDUT","https://dtpcare.com/scst/index.php?k=XBA5124"],
+["SK TALANTANG","https://dtpcare.com/scst/index.php?k=XBA5125"],
+["SK MANGIN","https://dtpcare.com/scst/index.php?k=XBA5126"],
+["SK LAMPADA","https://dtpcare.com/scst/index.php?k=XBA5127"],
+["SK KOROMOKO","https://dtpcare.com/scst/index.php?k=XBA5128"],
+["SK GANA","https://dtpcare.com/scst/index.php?k=XBA5129"],
+["SK RANAU","https://dtpcare.com/scst/index.php?k=XBA5130"],
+["SK BINTASAN","https://dtpcare.com/scst/index.php?k=XBA5131"],
+["SK KOTA MARUDU II","https://dtpcare.com/scst/index.php?k=XBA5132"],
+["SK MAGANDAI","https://dtpcare.com/scst/index.php?k=XBA5228"],
+["SJKC KHOI MING","https://dtpcare.com/scst/index.php?k=XCC5122"],
+["SMK TANDEK","https://dtpcare.com/scst/index.php?k=XEA5101"],
+["SMK BENGKONGAN","https://dtpcare.com/scst/index.php?k=XEA5102"],
+["SMK BANDAU","https://dtpcare.com/scst/index.php?k=XEA5103"],
+["SMK LANGKON","https://dtpcare.com/scst/index.php?k=XEA5104"],
+["SMK KOTA MARUDU II","https://dtpcare.com/scst/index.php?k=XEA5105"],
+["SMK TANDEK 2","https://dtpcare.com/scst/index.php?k=XEA5106"],
+["SMK KOTA MARUDU","https://dtpcare.com/scst/index.php?k=XEE5118"]
+
+];
+
+function showScST(){
+
+document.getElementById("scstModal").classList.remove("hidden");
+document.getElementById("scstModal").classList.add("flex");
+
+document.getElementById("scstList").innerHTML =
+scstLinks.map(s=>`
+<a href="${s[1]}"
+target="_blank"
+class="block p-3 border rounded-lg hover:bg-cyan-50 mb-2">
+
+🏫 ${s[0]}
+
+</a>
+`).join("");
+
+}
+
+function closeScST(){
+
+document.getElementById("scstModal").classList.add("hidden");
+document.getElementById("scstModal").classList.remove("flex");
+
+}
 const SCHOOL_LIST = [
 ["XBA5101","SEKOLAH KEBANGSAAN PEKAN KOTA MARUDU"],
 ["XBA5102","SEKOLAH KEBANGSAAN BENGKONGAN"],
@@ -790,26 +1211,7 @@ const SCHOOL_LIST = [
 ["XEA5106","SEKOLAH MENENGAH KEBANGSAAN TANDEK 2"],
 ["XEE5118","SEKOLAH MENENGAH KEBANGSAAN KOTA MARUDU"]
 ];
-let visitSchedules = [
-  {
-    date:"2026-06-10",
-    school:"SK BENGKONGAN",
-    officer:"JULIAN BIN KADIM",
-    status:"Belum Lawat"
-  },
-  {
-    date:"2026-06-12",
-    school:"SMK BANDAU",
-    officer:"JULIAN BIN KADIM",
-    status:"Belum Lawat"
-  },
-  {
-    date:"2026-06-15",
-    school:"SK LANGKON",
-    officer:"JULIAN BIN KADIM",
-    status:"Belum Lawat"
-  }
-];
+let visitSchedules = [];
 
 const config = {
   target_skor: 3.5
@@ -861,7 +1263,9 @@ images: (() => {
     return clean.images
       ? JSON.parse(clean.images)
       : [];
-  } catch(e){
+  } 
+
+catch(e){
     return [];
   }
 })(),
@@ -874,9 +1278,75 @@ updateRanking();
  document.getElementById("ai-insight").innerHTML =
     generateAIInsight();
 renderMiniChart();
-renderVisitSchedule();
+await loadVisitSchedules();
 }
-    // SKPM Items Data (268 items dengan Aspek)
+async function loadVisitSchedules(){
+
+  try{
+
+    const res =
+      await fetch(
+        API_URL + "?action=visitSchedules"
+      );
+
+    const data =
+      await res.json();
+
+  console.log("VISIT DATA:", data);
+
+    visitSchedules = data;
+
+    renderVisitSchedule();
+
+  }catch(err){
+
+    console.error("VISIT ERROR:", err);
+
+  }
+
+}
+
+
+function renderVisitSchedule(){
+
+  const container =
+    document.getElementById("visit-schedule");
+
+  if(!container) return;
+
+  if(!visitSchedules.length){
+
+    container.innerHTML = `
+      <div class="text-gray-500 text-sm">
+        Tiada jadual direkodkan
+      </div>
+    `;
+
+    return;
+  }
+
+container.innerHTML =
+  visitSchedules.map(v => {
+
+    const tarikhFormat = v.tarikh
+      ? new Date(v.tarikh).toLocaleDateString('ms-MY', {
+          timeZone: 'UTC',
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        })
+      : "-";
+
+    return `
+      <div class="border p-3 rounded-lg">
+        <div><b>Tarikh:</b> ${tarikhFormat}</div>
+        <div><b>Sekolah:</b> ${v.sekolah}</div>
+        <div><b>Pegawai:</b> ${v.pegawai}</div>
+      </div>
+    `;
+  }).join('');
+}
+  // SKPM Items Data (268 items dengan Aspek)
     const skpmItems = [
       // Standard 1: Kepemimpinan (44 items)
       { std: 1, kod: '1.1.1.PGB menetapkan hala tuju sekolah secara terancang', aspek: 'a', label: ' Membuat analisis SWOT / analisis lain yang bersesuaian' },
@@ -1850,11 +2320,14 @@ images: JSON.stringify(reportImages),
 };
 
 
-    await saveToSheet(data);
+   await saveToSheet(data);
 
-    showToast(currentEditId ? 'Penilaian dikemaskini!' : 'Penilaian ditambah!');
-    closeModal();
-    await loadFromSheet();
+showToast(currentEditId ? 'Penilaian dikemaskini!' : 'Penilaian ditambah!');
+
+closeModal();
+
+await loadFromSheet();
+await loadVisitSchedules();
 
   } catch (err) {
     console.error(err);
@@ -1899,15 +2372,117 @@ function renderStdBar(label, value){
 }
 
     function viewSummary(backendId) {
-      const record = allRecords.find(r => r.__backendId === backendId);
-      if (!record) return;
+
+  console.log("Rumusan:", backendId);
+
+  const record = allRecords.find(
+      r => String(r.__backendId) === String(backendId)
+  );
+
+  console.log(record);
+
+  if (!record){
+      showToast("Rekod tidak dijumpai.");
+      return;
+  }
 
       const statusBadge = getStatusBadge(record.skor_keseluruhan);
       const status = getStatus(record.skor_keseluruhan);
       const targetSkor = parseFloat(config.target_skor) || 3.5;
       const achieveTarget = record.skor_keseluruhan >= targetSkor;
       const tarikh = new Date(record.tarikh_penilaian).toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
+const skor = Number(record.skor_keseluruhan);
 
+let statusLabel = "";
+let statusEmoji = "";
+let aiSummary = "";
+let strengthHtml = "";
+let improvementHtml = "";
+let recommendationHtml = "";
+
+if (skor >= 3.5){
+
+    statusLabel = "CEMERLANG";
+    statusEmoji = "🏆";
+
+    strengthHtml = `
+        <li>✅ Kepimpinan sekolah sangat berkesan.</li>
+        <li>✅ Pengurusan organisasi sistematik.</li>
+        <li>✅ Pelaksanaan PdP berkualiti.</li>
+        <li>✅ Budaya kerja profesional.</li>
+    `;
+
+    improvementHtml = `
+        <li>🔸 Terus memperkukuh Standard yang paling rendah.</li>
+        <li>🔸 Perluasan inovasi sekolah.</li>
+    `;
+
+    recommendationHtml = `
+        <li>Kekalkan amalan terbaik.</li>
+        <li>Jadikan sekolah sebagai penanda aras.</li>
+        <li>Kongsi amalan terbaik melalui PLC.</li>
+    `;
+
+    aiSummary =
+    `Berdasarkan analisis AI, prestasi keseluruhan sekolah berada pada tahap Cemerlang. 
+    Kepimpinan sekolah menunjukkan keberkesanan yang tinggi dengan pengurusan organisasi yang sistematik serta pelaksanaan proses pembelajaran yang berkualiti. 
+    Sekolah disarankan untuk terus mengekalkan momentum kecemerlangan dan berkongsi amalan terbaik dengan sekolah lain sebagai penanda aras daerah.`;
+
+}
+
+else if (skor >= 2.50){
+
+    statusLabel = "BAIK";
+    statusEmoji = "🟢";
+
+    strengthHtml = `
+        <li>✅ Pengurusan sekolah berada pada tahap baik.</li>
+        <li>✅ Kebanyakan Standard memenuhi sasaran.</li>
+        <li>✅ Pelaksanaan program adalah terancang.</li>
+    `;
+
+    improvementHtml = `
+        <li>🔸 Tingkatkan Standard yang memperoleh skor terendah.</li>
+        <li>🔸 Perkukuh evidens pelaksanaan.</li>
+    `;
+
+    recommendationHtml = `
+        <li>Fokus kepada Standard yang belum mencapai sasaran.</li>
+        <li>Tingkatkan pemantauan dalaman.</li>
+        <li>Laksanakan PLC berkala.</li>
+    `;
+
+    aiSummary =
+    `Prestasi sekolah berada pada tahap Baik. Sebahagian besar indikator telah memenuhi sasaran, namun masih terdapat ruang penambahbaikan khususnya pada Standard yang memperoleh skor lebih rendah. Dengan intervensi yang berfokus dan pemantauan berterusan, sekolah berpotensi mencapai tahap Cemerlang.`;
+
+}
+
+else{
+
+    statusLabel = "PERLU INTERVENSI";
+    statusEmoji = "🔴";
+
+    strengthHtml = `
+        <li>✅ Komitmen warga sekolah masih baik.</li>
+        <li>✅ Asas pengurusan telah diwujudkan.</li>
+    `;
+
+    improvementHtml = `
+        <li>🔸 Standard kritikal memerlukan tindakan segera.</li>
+        <li>🔸 Evidens perlu diperkukuh.</li>
+        <li>🔸 Pemantauan perlu dipertingkatkan.</li>
+    `;
+
+    recommendationHtml = `
+        <li>Lawatan susulan dalam tempoh terdekat.</li>
+        <li>Sediakan pelan intervensi sekolah.</li>
+        <li>Pantau kemajuan setiap bulan.</li>
+    `;
+
+    aiSummary =
+    `Analisis AI menunjukkan sekolah memerlukan intervensi segera. Beberapa Standard masih belum mencapai sasaran daerah dan memerlukan tindakan susulan yang sistematik. Pelaksanaan pelan intervensi, pemantauan berkala dan bimbingan berfokus dijangka dapat meningkatkan prestasi sekolah dalam penilaian akan datang.`;
+
+}
      const summaryHtml = `
 <div style="font-family:Poppins,Arial,sans-serif;color:#222;width:100%">
 
@@ -1956,7 +2531,117 @@ function renderStdBar(label, value){
       </div>
     </div>
   </div>
+<div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white rounded-2xl p-6 shadow-lg">
 
+    <div class="flex items-center justify-between">
+        <div>
+            <h2 class="text-3xl font-bold">🤖 AI Executive Summary</h2>
+            <p class="text-indigo-100 mt-1">
+                Rumusan Analisis Prestasi Sekolah
+            </p>
+        </div>
+
+        <div class="text-right">
+            <div class="text-sm opacity-90">Tarikh Analisis</div>
+            <div class="font-semibold">
+                ${new Date().toLocaleDateString('ms-MY')}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="grid md:grid-cols-4 gap-5 mt-6">
+
+    <div class="bg-white rounded-xl shadow border p-5">
+        <div class="text-gray-500 text-sm">Sekolah</div>
+        <div class="font-bold text-lg mt-1">
+            ${record.school_name}
+        </div>
+    </div>
+
+    <div class="bg-green-50 rounded-xl shadow border p-5">
+        <div class="text-gray-500 text-sm">Skor Keseluruhan</div>
+        <div class="text-4xl font-bold text-green-600">
+            ${record.skor_keseluruhan.toFixed(2)}
+        </div>
+    </div>
+
+    <div class="bg-blue-50 rounded-xl shadow border p-5">
+        <div class="text-gray-500 text-sm">Status</div>
+        <div class="text-xl font-bold text-blue-700">
+            ${statusLabel}
+        </div>
+    </div>
+
+    <div class="bg-purple-50 rounded-xl shadow border p-5">
+        <div class="text-gray-500 text-sm">Tahap Prestasi</div>
+        <div class="text-3xl">
+            ${statusEmoji}
+        </div>
+    </div>
+
+</div>
+
+<div class="grid lg:grid-cols-2 gap-6 mt-6">
+
+    <div class="bg-green-50 rounded-xl border border-green-200 p-6">
+
+        <h3 class="text-xl font-bold text-green-700 mb-4">
+            💪 Kekuatan Utama
+        </h3>
+
+        <ul class="space-y-3">
+
+            ${strengthHtml}
+
+        </ul>
+
+    </div>
+
+    <div class="bg-yellow-50 rounded-xl border border-yellow-200 p-6">
+
+        <h3 class="text-xl font-bold text-yellow-700 mb-4">
+            📈 Penambahbaikan
+        </h3>
+
+        <ul class="space-y-3">
+
+            ${improvementHtml}
+
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="bg-indigo-50 rounded-xl border border-indigo-200 p-6 mt-6">
+
+    <h3 class="text-xl font-bold text-indigo-700 mb-4">
+        🎯 Cadangan AI
+    </h3>
+
+    <ol class="list-decimal ml-5 space-y-2">
+
+        ${recommendationHtml}
+
+    </ol>
+
+</div>
+
+<div class="bg-gray-50 rounded-xl border p-6 mt-6">
+
+    <h3 class="text-xl font-bold mb-4">
+        🤖 Rumusan AI
+    </h3>
+
+    <p class="leading-8 text-gray-700">
+
+        ${aiSummary}
+
+    </p>
+
+</div>
   <!-- STANDARD -->
   <div style="border:1px solid #ddd;border-radius:8px;padding:14px;margin-bottom:14px">
     <div style="font-size:15px;font-weight:700;margin-bottom:10px;color:#6a1b9a">
@@ -2082,6 +2767,7 @@ function exportExcel() {
          shadow-xl z-50 text-2xl">
   +
 </button>
+<!-- MODAL PENGUMUMAN -->
 
     </body>
     </html>
@@ -2137,47 +2823,81 @@ function downloadPDF() {
   .from(element)
   .save();
 }
-function login() {
-  const username = document.getElementById('login-username').value;
-  const password = document.getElementById('login-password').value;
+async function login() {
 
-  const user = USERS.find(u => u.username === username && u.password === password);
+  const username =
+    document.getElementById('login-username').value;
+
+  const password =
+    document.getElementById('login-password').value;
+
+  const user =
+    USERS.find(u =>
+      u.username === username &&
+      u.password === password
+    );
 
   if (!user) {
-    document.getElementById('login-error').textContent = "Login gagal!";
+
+    document.getElementById('login-error')
+      .textContent = "Login gagal!";
+
     return;
   }
 
   currentUser = user;
-  localStorage.setItem("skpm_user", JSON.stringify(user));
 
-  document.getElementById('login-screen').style.display = "none";
-  document.getElementById('app').style.display = "block";
+  localStorage.setItem(
+    "skpm_user",
+    JSON.stringify(user)
+  );
+
+  document.getElementById('login-screen')
+    .style.display = "none";
+
+  document.getElementById('app')
+    .style.display = "block";
 
   applyRoleAccess();
+
+  // LOAD DATA
+  await loadFromSheet();
+  await loadVisitSchedules();
+
 }
-
 // auto login bila reload
-function checkLogin() {
+async function checkLogin() {
 
-  const saved = localStorage.getItem("skpm_user");
+  const saved =
+    localStorage.getItem("skpm_user");
 
   if (saved) {
 
     currentUser = JSON.parse(saved);
 
-    document.getElementById('login-screen').style.display = "none";
-    document.getElementById('app').style.display = "block";
+    document.getElementById('login-screen')
+      .style.display = "none";
+
+    document.getElementById('app')
+      .style.display = "block";
+
+    applyRoleAccess();
+
+    await loadFromSheet();
+    await loadVisitSchedules();
 
   } else {
 
-    document.getElementById('login-screen').style.display = "flex";
-    document.getElementById('app').style.display = "none";
+    document.getElementById('login-screen')
+      .style.display = "flex";
+
+    document.getElementById('app')
+      .style.display = "none";
 
   }
 
-  applyRoleAccess();
-}function applyRoleAccess() {
+}
+function applyRoleAccess() {
   if (!currentUser) return;
 
   const isAdminUser = currentUser.role === "admin";
@@ -2963,46 +3683,24 @@ function renderVisitSchedule(){
   const container =
     document.getElementById("visit-schedule");
 
-  if(!visitSchedules.length){
+  if(!container) return;
 
-    container.innerHTML =
-      `<div class="text-gray-500 text-sm">
-        Tiada jadual direkodkan
-      </div>`;
+  container.innerHTML = "";
 
-    return;
-  }
+  visitSchedules.forEach(v => {
 
-  visitSchedules.sort(
-    (a,b)=>new Date(a.date)-new Date(b.date)
-  );
-
-  container.innerHTML =
-    visitSchedules.map(v=>`
-
-      <div class="flex justify-between items-center
-                  border rounded-lg p-3">
-
-        <div>
-          <div class="font-semibold">
-            ${v.school}
-          </div>
-
-          <div class="text-sm text-gray-500">
-            ${formatDate(v.date)}
-          </div>
-        </div>
-
-        <span class="bg-blue-100 text-blue-700
-                     px-3 py-1 rounded-full text-xs">
-          Lawatan
-        </span>
-
+    container.innerHTML += `
+      <div style="border:1px solid #ddd;padding:10px;margin-bottom:10px">
+        <b>${String(v.sekolah)}</b><br>
+        Tarikh: ${formatDate(v.tarikh)}<br>
+        Pegawai: ${String(v.pegawai)}<br>
+        Status: ${String(v.status)}
       </div>
+    `;
 
-    `).join("");
-}
-function formatDate(dateString){
+  });
+
+}function formatDate(dateString){
 
   return new Date(dateString)
     .toLocaleDateString("ms-MY",{
@@ -3016,27 +3714,156 @@ function getVisitSchedules() {
 
   const sheet =
     SpreadsheetApp
-    .getActiveSpreadsheet()
-    .getSheetByName("JADUAL_LAWATAN");
+      .getActiveSpreadsheet()
+      .getSheetByName("JADUAL_LAWATAN");
 
   const data =
     sheet.getDataRange().getValues();
 
   const headers = data.shift();
 
-  return data.map(row => {
+  return data.map(row => ({
 
-    let obj = {};
+    id: row[0],
+    tarikh: row[1],
+    sekolah: row[2],
+    pegawai: row[3],
+    status: row[4]
 
-    headers.forEach((h,i)=>{
-      obj[h] = row[i];
-    });
+  }));
 
-    return obj;
-
-  });
 }
+
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c9fef110661d04c',t:'MTc3MDQzNjMzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<div id="announcementModal"
+     class="fixed inset-0 bg-black/60 hidden justify-center items-center z-50">
+
+    <div class="bg-white rounded-2xl shadow-xl w-[700px] max-w-[95%]">
+
+        <div class="bg-blue-700 text-white px-6 py-4 rounded-t-2xl flex justify-between">
+
+            <h2 class="text-xl font-bold">
+                📢 Pengumuman Terkini
+            </h2>
+
+            <button onclick="closeAnnouncement()"
+                    class="text-white text-2xl">
+                ×
+            </button>
+
+        </div>
+
+        <div class="p-6 space-y-4">
+
+            <div class="border-l-4 border-blue-600 pl-4">
+
+                <h3 class="font-bold">
+                    Lawatan BiSS
+                </h3>
+
+                <p>
+                    Semua sekolah diminta mengemaskini dokumen SKPM
+                    sebelum lawatan bermula.
+                </p>
+
+            </div>
+
+            <div class="border-l-4 border-green-600 pl-4">
+
+                <h3 class="font-bold">
+                    Tarikh Penting
+                </h3>
+
+                <p>
+                    Penilaian BiSS Misi 1 akan bermula pada
+                    <b>13-17 Julai 2026</b>.
+                    Penilaian BiSS Misi 2 akan bermula pada
+                    <b>9-13 November 2026</b>
+                </p>
+
+            </div>
+
+            <div class="border-l-4 border-red-600 pl-4">
+
+                <h3 class="font-bold">
+                    Peringatan
+                </h3>
+
+                <p>
+                    Pastikan semua evidens disediakan dan ditunjukkan semasa 
+                    penilaian dijalankan.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+setInterval(function(){
+
+const d = new Date();
+
+const clock = document.getElementById("clock");
+
+if(clock){
+    clock.innerHTML =
+        d.toLocaleDateString("ms-MY") +
+        " | " +
+        d.toLocaleTimeString("ms-MY");
+}
+
+},1000);
+
+const banners = [
+"https://i.imgur.com/rcMKQsT.png?w=2000",
+"https://i.imgur.com/AhDvusd.jpeg?w=2000",
+"https://i.imgur.com/bsXGQHk.jpeg?w=2000",
+"https://i.imgur.com/DwTsf42.jpeg?w=2000"
+];
+
+let slide = 0;
+
+setInterval(()=>{
+
+const img = document.getElementById("bannerSlider");
+
+if(img){
+
+slide = (slide + 1) % banners.length;
+
+img.src = banners[slide];
+
+}
+
+},5000);
+function showAnnouncement(){
+
+    document
+      .getElementById("announcementModal")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("announcementModal")
+      .classList.add("flex");
+}
+
+function closeAnnouncement(){
+
+    document
+      .getElementById("announcementModal")
+      .clssList.remove("flex");
+
+    document
+      .getElementById("announcementModal")
+      .classList.add("hidden");
+}
+
+</script>
+
 </body>
 </html>
