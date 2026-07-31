@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
 @media print {
@@ -213,7 +214,37 @@ table th{
     display:none !important;
   }
 
-}  </style>
+}  
+#login-username,
+#login-password{
+
+    background:#f8fafc;
+
+    transition:.3s;
+
+}
+
+#login-username:focus,
+#login-password:focus{
+
+    background:white;
+
+    box-shadow:0 0 0 4px rgba(59,130,246,.15);
+
+}
+
+button{
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+</style>
   <style>@view-transition { navigation: auto; }</style>
  </head>
  <body class="h-full">
@@ -354,24 +385,7 @@ Pemantauan • Penilaian • Intervensi • Kualiti ⭐
 
 </button>
 
-            <a href="mailto:ppdkotamarudu@moe.gov.my"
-               class="flex items-center gap-3 p-4 hover:bg-red-50 border-b">
-
-                <span class="text-2xl">📞</span>
-
-                <div>
-
-                    <div class="font-bold">
-                        Hubungi Kami
-                    </div>
-
-                    <div class="text-xs text-gray-500">
-                        ppdkotamarudu@moe.gov.my
-                    </div>
-
-                </div>
-
-            </a>
+            
 
             <a href="https://drive.google.com/file/d/1R718T_voQgQuZjKPqbgEXUXFq3i4et9y/view?usp=sharing"
                target="_blank"
@@ -427,6 +441,25 @@ Pemantauan • Penilaian • Intervensi • Kualiti ⭐
     </div>
 
 </a>
+
+<a href="mailto:ppdkotamarudu@moe.gov.my"
+               class="flex items-center gap-3 p-4 hover:bg-red-50 border-b">
+
+                <span class="text-2xl">📞</span>
+
+                <div>
+
+                    <div class="font-bold">
+                        Hubungi Kami
+                    </div>
+
+                    <div class="text-xs text-gray-500">
+                        ppdkotamarudu@moe.gov.my
+                    </div>
+
+                </div>
+
+            </a>
         </div>
 
     </div>
@@ -450,65 +483,84 @@ Pemantauan • Penilaian • Intervensi • Kualiti ⭐
 
         </div>
 
-        <div class="bg-white rounded-xl shadow mt-5">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mt-5">
 
-            <div class="bg-gray-100 border-b px-5 py-3 font-bold">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-700 to-cyan-600 px-6 py-5 text-white">
 
-                LOG MASUK
+        <div class="flex items-center gap-3">
 
+            <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-3xl">
+                🔐
             </div>
 
-            <div class="p-6">
+            <div>
+                <h2 class="text-2xl font-bold">
+                    Log Masuk
+                </h2>
 
-                <label class="font-semibold">
-                    Username
-                </label>
-
-                <input
-                id="login-username"
-                class="w-full border rounded-lg p-3 mt-2 mb-4">
-
-                <label class="font-semibold">
-                    Password
-                </label>
-
-                <input
-                id="login-password"
-                type="password"
-                class="w-full border rounded-lg p-3 mt-2">
-
-                <div class="mt-4">
-
-                    <label>
-
-                        <input type="checkbox">
-
-                        Ingat Saya
-
-                    </label>
-
-                </div>
-
-                <button
-                onclick="login()"
-                class="w-full bg-blue-700 hover:bg-blue-800 text-white rounded-lg p-3 mt-5 font-bold">
-
-                    MASUK KE SISTEM
-
-                </button>
-
-                <div class="text-center mt-5">
-
-                    <span
-                    id="clock"
-                    class="font-bold text-blue-700">
-                    </span>
-
-                </div>
-
+                <p class="text-blue-100 text-sm">
+                    Sistem Bimbingan Sekolah Sepadu (BiSS)
+                </p>
             </div>
 
         </div>
+
+    </div>
+
+    <!-- Form -->
+    <div class="p-8">
+
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Username
+        </label>
+
+        <input
+        id="login-username"
+        placeholder="Masukkan username"
+        class="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+
+        <label class="block text-sm font-semibold text-gray-700 mt-6 mb-2">
+            Password
+        </label>
+
+        <input
+        id="login-password"
+        type="password"
+        placeholder="Masukkan password"
+        class="w-full border border-gray-300 rounded-xl p-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+
+        <div class="flex justify-between items-center mt-5">
+
+            <label class="flex items-center gap-2 text-gray-600">
+
+                <input type="checkbox">
+
+                <span>Ingat Saya</span>
+
+            </label>
+
+            <span id="clock"
+                  class="font-semibold text-blue-700">
+            </span>
+
+        </div>
+
+        <button
+        onclick="login()"
+        class="w-full mt-8 rounded-xl p-4 font-bold text-lg text-white
+               bg-gradient-to-r from-blue-700 to-cyan-600
+               hover:from-blue-800 hover:to-cyan-700
+               shadow-lg hover:shadow-xl
+               transition-all duration-300">
+
+            🔐 MASUK KE SISTEM
+
+        </button>
+
+    </div>
+
+</div>
 
     </div>
 
@@ -719,12 +771,17 @@ Aksi
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <div>
-      <h4 class="font-semibold text-green-700 mb-3">🏆 Top 5 Sekolah</h4>
+     <h4 class="font-semibold text-green-700 mb-3 text-lg">
+🥇 10 Sekolah Terbaik
+</h4>
+
       <div id="top-ranking" class="space-y-2 text-sm"></div>
     </div>
 
     <div>
-      <h4 class="font-semibold text-red-700 mb-3">⚠️ Bottom 5 Sekolah</h4>
+      <h4 class="font-semibold text-red-700 mb-3 text-lg">
+🔻 10 Sekolah Terendah
+</h4>
       <div id="bottom-ranking" class="space-y-2 text-sm"></div>
     </div>
   </div>
@@ -763,12 +820,63 @@ Aksi
 
   </div>
 
-  <div id="ai-insight"
-    class="text-indigo-800 text-sm leading-relaxed">
+ <div id="ai-insight"
+class="space-y-4 text-sm">
 
-    Tiada analisis lagi.
+<div class="bg-white rounded-xl p-4 border border-indigo-200">
 
-  </div>
+<h4 class="font-bold text-indigo-900 mb-2">
+📊 Rumusan AI Daerah
+</h4>
+
+<p id="ai-summary"
+class="text-gray-700 leading-7">
+Analisis akan dijana secara automatik berdasarkan data penilaian sekolah.
+</p>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-4">
+
+<div class="bg-green-50 border border-green-200 rounded-xl p-4">
+
+<h4 class="font-bold text-green-700 mb-2">
+🏆 Kekuatan Utama
+</h4>
+
+<div id="ai-strength">
+-
+</div>
+
+</div>
+
+<div class="bg-red-50 border border-red-200 rounded-xl p-4">
+
+<h4 class="font-bold text-red-700 mb-2">
+⚠ Bidang Penambahbaikan
+</h4>
+
+<div id="ai-improvement">
+-
+</div>
+
+</div>
+
+</div>
+
+<div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+
+<h4 class="font-bold text-blue-700 mb-2">
+💡 Cadangan AI
+</h4>
+
+<div id="ai-recommendation">
+-
+</div>
+
+</div>
+
+</div>
 
 </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -812,7 +920,7 @@ Unit Menengah dan Tingkatan 6
   </div>
 
   <div class="text-white/80 text-sm">
-    Pembangun Sistem BiSS
+    Sektor Pengurusan Sekolah
   </div>
 
   <div class="text-white/70 text-sm">
@@ -1009,40 +1117,6 @@ Unit Menengah dan Tingkatan 6
    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg hidden z-50"><span id="toast-message"></span>
    </div>
    <div id="report-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
-     <div class="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-      <h2 id="report-modal-title" class="text-lg sm:text-xl font-bold text-gray-900">Laporan Penilaian SKPM</h2><button onclick="closeReportModal()" class="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition flex-shrink-0">
-       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-       </svg></button>
-     </div>
-
-     <div id="print-area">
-  <div id="report-content" class="p-4 sm:p-6"></div>
-</div>
-
-   <div class="flex gap-2 sm:gap-3 p-4 sm:p-6 border-t border-gray-200 no-print">
-
-  <button onclick="downloadPDF()"
-    class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-green-600 text-white rounded-lg font-medium text-sm hover:bg-green-700 transition">
-    📄 Jana PDF
-  </button>
-<button onclick="generateOnePageReport()"
-  class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-indigo-600 text-white rounded-lg font-medium text-sm hover:bg-indigo-700 transition">
-  📋 One Page Report
-</button>
-  <button onclick="closeReportModal()"
-    class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg text-gray-900 font-medium text-sm hover:bg-gray-50 transition">
-    Tutup
-  </button>
-
-</div>
-
-
-     </div>
-    </div>
-   </div>
-  </div>
-<div id="report-modal" class="fixed inset-0 modal-overlay hidden flex items-center justify-center p-3 sm:p-4 z-50">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto animate-in">
      <div class="sticky top-0 bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
       <h2 id="report-modal-title" class="text-lg sm:text-xl font-bold text-gray-900">Laporan Penilaian SKPM</h2><button onclick="closeReportModal()" class="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-100 rounded transition flex-shrink-0">
@@ -1290,10 +1364,17 @@ catch(e){
 
   
 updateDashboard();
+
+// Ranking Top 10 / Bottom 10
 updateRanking();
- document.getElementById("ai-insight").innerHTML =
-    generateAIInsight();
-renderMiniChart();
+
+// Carta Mini Standard
+updateStandardMiniChart();
+
+// AI Insight
+generateAIInsight();
+
+// Jadual Lawatan
 await loadVisitSchedules();
 }
 async function loadVisitSchedules(){
@@ -1325,14 +1406,13 @@ async function loadVisitSchedules(){
 
 function renderVisitSchedule(){
 
-  const container =
-    document.getElementById("visit-schedule");
+  const container = document.getElementById("visit-schedule");
 
   if(!container) return;
 
   if(!visitSchedules.length){
 
-    container.innerHTML = `
+    container.innerHTML=`
       <div class="text-gray-500 text-sm">
         Tiada jadual direkodkan
       </div>
@@ -1341,26 +1421,89 @@ function renderVisitSchedule(){
     return;
   }
 
-container.innerHTML =
-  visitSchedules.map(v => {
+  container.innerHTML = visitSchedules.map(v=>{
 
-    const tarikhFormat = v.tarikh
-      ? new Date(v.tarikh).toLocaleDateString('ms-MY', {
-          timeZone: 'UTC',
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric'
-        })
-      : "-";
+    const tarikh=v.tarikh
+    ?new Date(v.tarikh).toLocaleDateString('ms-MY',{
+      day:'2-digit',
+      month:'long',
+      year:'numeric',
+      timeZone:'UTC'
+    })
+    :"-";
 
     return `
-      <div class="border p-3 rounded-lg">
-        <div><b>Tarikh:</b> ${tarikhFormat}</div>
-        <div><b>Sekolah:</b> ${v.sekolah}</div>
-        <div><b>Pegawai:</b> ${v.pegawai}</div>
-      </div>
-    `;
+
+<div class="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-xl transition">
+
+<div class="bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-4 rounded-t-2xl flex justify-between items-center">
+
+<div class="font-bold text-lg">
+🏫 ${v.sekolah}
+</div>
+
+<div class="text-sm bg-white/20 px-3 py-1 rounded-full">
+Lawatan
+</div>
+
+</div>
+
+<div class="p-5 space-y-3">
+
+<div class="flex items-center gap-3">
+
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+📅
+</div>
+
+<div>
+
+<div class="text-xs text-gray-500">
+Tarikh
+</div>
+
+<div class="font-semibold">
+${tarikh}
+</div>
+
+</div>
+
+</div>
+
+<div class="flex items-center gap-3">
+
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+👤
+</div>
+
+<div>
+
+<div class="text-xs text-gray-500">
+Pegawai
+</div>
+
+<div class="font-semibold">
+${v.pegawai}
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
   }).join('');
+
+  // Jumlah lawatan
+  const total=document.getElementById("visitTotal");
+  if(total){
+      total.textContent=visitSchedules.length;
+  }
+
 }
   // SKPM Items Data (268 items dengan Aspek)
     const skpmItems = [
@@ -1897,55 +2040,109 @@ function average(arr){
 }
 function generateAIInsight(){
 
-  if(allRecords.length === 0){
-    return "Tiada data penilaian direkodkan.";
-  }
+if(allRecords.length===0){
 
-  const avg =
-    allRecords.reduce((a,b)=>a+b.skor_keseluruhan,0) /
-    allRecords.length;
+document.getElementById("ai-summary").innerHTML=
+"Tiada data penilaian direkodkan.";
 
-  const stdAvg = [1,2,3,4].map(std=>{
-    return allRecords.reduce((sum,r)=>
-      sum + (parseFloat(r[`skor_standard_${std}`]) || 0),0
-    ) / allRecords.length;
-  });
+document.getElementById("ai-strength").innerHTML="-";
+document.getElementById("ai-improvement").innerHTML="-";
+document.getElementById("ai-recommendation").innerHTML="-";
 
-  const highestStd = stdAvg.indexOf(Math.max(...stdAvg))+1;
-  const lowestStd  = stdAvg.indexOf(Math.min(...stdAvg))+1;
+return;
 
-  let status =
-    avg >= 3.5 ? "Cemerlang" :
-    avg >= 2.5 ? "Baik" :
-    avg >= 1.5 ? "Sederhana" :
-    "Lemah";
+}
 
-  return `
-  <div class="space-y-3">
-    <div>
-      📊 Purata keseluruhan daerah:
-      <b>${avg.toFixed(2)}</b> (${status})
-    </div>
+const avg=
+allRecords.reduce((a,b)=>a+b.skor_keseluruhan,0)
+/allRecords.length;
 
-    <div>
-      🟢 Kekuatan utama:
-      <b>Standard ${highestStd}</b>
-      (${stdAvg[highestStd-1].toFixed(2)})
-    </div>
+let status="";
 
-    <div>
-      🔴 Perlu perhatian:
-      <b>Standard ${lowestStd}</b>
-      (${stdAvg[lowestStd-1].toFixed(2)})
-    </div>
+if(avg>=3.5){
 
-    <div>
-      🎯 Cadangan:
-      Fokus intervensi terhadap Standard ${lowestStd}
-      bagi meningkatkan prestasi daerah secara menyeluruh.
-    </div>
-  </div>`;
-}function average(arr) {
+status="CEMERLANG";
+
+}else if(avg>=2.5){
+
+status="BAIK";
+
+}else{
+
+status="PERLU INTERVENSI";
+
+}
+
+document.getElementById("ai-summary").innerHTML=`
+
+Purata skor daerah ialah
+<b>${avg.toFixed(2)}</b>.
+
+Status keseluruhan ialah
+<b>${status}</b>.
+
+Sebanyak
+<b>${allRecords.length}</b>
+buah sekolah telah dinilai.
+
+`;
+
+const s1=
+averageStandard(1);
+
+const s2=
+averageStandard(2);
+
+const s3=
+averageStandard(3);
+
+const s4=
+averageStandard(4);
+
+const arr=[
+{n:"Standard 1",v:s1},
+{n:"Standard 2",v:s2},
+{n:"Standard 3",v:s3},
+{n:"Standard 4",v:s4}
+];
+
+arr.sort((a,b)=>b.v-a.v);
+
+document.getElementById("ai-strength").innerHTML=`
+✅ ${arr[0].n}
+(${arr[0].v.toFixed(2)})
+`;
+
+document.getElementById("ai-improvement").innerHTML=`
+⚠ ${arr[3].n}
+(${arr[3].v.toFixed(2)})
+`;
+
+document.getElementById("ai-recommendation").innerHTML=`
+
+• Teruskan amalan terbaik sekolah berprestasi tinggi.<br>
+
+• Fokus intervensi kepada
+<b>${arr[3].n}</b>.<br>
+
+• Tingkatkan pemantauan dan bimbingan sekolah yang memperoleh skor rendah.<br>
+
+• Laksanakan PLC dan perkongsian amalan terbaik antara sekolah.
+
+`;
+
+}
+function averageStandard(no){
+
+return allRecords.reduce((a,b)=>
+
+a+Number(b["skor_standard_"+no]||0)
+
+,0)/allRecords.length;
+
+}
+
+function average(arr) {
 
   return arr.reduce((a,b)=>a+b,0) / arr.length;
 }
@@ -2070,91 +2267,45 @@ function generateAIInsight(){
     }
 function updateRanking() {
 
-  const topBox =
-    document.getElementById("top-ranking");
-
-  const bottomBox =
-    document.getElementById("bottom-ranking");
+  const topBox = document.getElementById("top-ranking");
+  const bottomBox = document.getElementById("bottom-ranking");
 
   if (!topBox || !bottomBox) return;
 
   if (!allRecords || allRecords.length === 0) {
-
-    topBox.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
-    bottomBox.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
+    topBox.innerHTML = "<div class='text-gray-500'>Tiada data</div>";
+    bottomBox.innerHTML = "<div class='text-gray-500'>Tiada data</div>";
     return;
   }
 
-  const sorted = [...allRecords]
-    .sort((a,b) =>
-      Number(b.skor_keseluruhan || 0) -
-      Number(a.skor_keseluruhan || 0)
-    );
+  const sorted = [...allRecords].sort((a, b) =>
+    Number(b.skor_keseluruhan || 0) -
+    Number(a.skor_keseluruhan || 0)
+  );
 
-  const top5 = sorted.slice(0,5);
+  const top10 = sorted.slice(0, 10);
+  const bottom10 = [...sorted].slice(-10).reverse();
 
-  const bottom5 =
-    [...sorted]
-      .reverse()
-      .slice(0,5);
-
-  topBox.innerHTML = top5.map((r,i)=>`
-
-    <div class="flex items-center justify-between
-      bg-green-50 border border-green-200
-      rounded-lg px-3 py-2">
-
+  topBox.innerHTML = top10.map((r,i)=>`
+    <div class="flex justify-between bg-green-50 border border-green-200 rounded-lg px-3 py-2">
       <div>
-
-        <div class="font-semibold text-gray-800">
-          ${i + 1}. ${r.nama_sekolah || r.school_name || r["Nama Sekolah"] || "-"}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || r.school_code || r["Kod Sekolah"] || ""}
-        </div>
-
+        <div><b>${i+1}. ${r.nama_sekolah}</b></div>
+        <div class="text-xs">${r.kod_sekolah||""}</div>
       </div>
-
-      <div class="font-bold text-green-700">
-        ${Number(r.skor_keseluruhan || 0).toFixed(2)}
-      </div>
-
+      <div class="font-bold text-green-700">${Number(r.skor_keseluruhan).toFixed(2)}</div>
     </div>
-
   `).join("");
 
-  bottomBox.innerHTML = bottom5.map((r,i)=>`
-
-    <div class="flex items-center justify-between
-      bg-red-50 border border-red-200
-      rounded-lg px-3 py-2">
-
+  bottomBox.innerHTML = bottom10.map((r,i)=>`
+    <div class="flex justify-between bg-red-50 border border-red-200 rounded-lg px-3 py-2">
       <div>
-
-        <div class="font-semibold text-gray-800">
-          ${i + 1}. $${r.nama_sekolah || r["nama sekolah"] || "-"}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || ""}
-        </div>
-
+        <div><b>${i+1}. ${r.nama_sekolah}</b></div>
+        <div class="text-xs">${r.kod_sekolah||""}</div>
       </div>
-
-      <div class="font-bold text-red-700">
-        ${Number(r.skor_keseluruhan || 0).toFixed(2)}
-      </div>
-
+      <div class="font-bold text-red-700">${Number(r.skor_keseluruhan).toFixed(2)}</div>
     </div>
-
   `).join("");
-}
-function updateStandardMiniChart() {
+}function updateStandardMiniChart() {
   if (allRecords.length === 0) return;
 
   const stdAvg = [1,2,3,4].map(i => {
@@ -2175,10 +2326,7 @@ function updateStandardMiniChart() {
       <div class="text-xs text-gray-600">${v.toFixed(2)}</div>
     </div>
   `).join('');
-}
-
-
-    
+}  
    function showAddModal() {
  if (!isAdmin()) {
     showToast("Akses ditolak! Admin sahaja.");
@@ -2396,7 +2544,7 @@ function renderStdBar(label, value){
   );
 
   console.log(record);
-
+console.log(Object.keys(record));
   if (!record){
       showToast("Rekod tidak dijumpai.");
       return;
@@ -2408,7 +2556,30 @@ function renderStdBar(label, value){
       const achieveTarget = record.skor_keseluruhan >= targetSkor;
       const tarikh = new Date(record.tarikh_penilaian).toLocaleDateString('ms-MY', { year: 'numeric', month: 'long', day: 'numeric' });
 const skor = Number(record.skor_keseluruhan);
+// =========================
+// ANALISIS AUTOMATIK
+// =========================
 
+const standards = [
+    { nama: "Standard 1", skor: Number(record.skor_standard_1 || 0) },
+    { nama: "Standard 2", skor: Number(record.skor_standard_2 || 0) },
+    { nama: "Standard 3", skor: Number(record.skor_standard_3 || 0) },
+    { nama: "Standard 4", skor: Number(record.skor_standard_4 || 0) }
+];
+
+const terbaik = standards.reduce((a,b)=>a.skor>b.skor?a:b);
+const terendah = standards.reduce((a,b)=>a.skor<b.skor?a:b);
+
+// Ranking Daerah
+const ranking = [...allRecords]
+.sort((a,b)=>b.skor_keseluruhan-a.skor_keseluruhan);
+const kedudukan =
+ranking.findIndex(r=>r.__backendId===record.__backendId)+1;
+
+const jumlahSekolah = ranking.length;
+
+const bezaTarget =
+(record.skor_keseluruhan-targetSkor).toFixed(2);
 let statusLabel = "";
 let statusEmoji = "";
 let aiSummary = "";
@@ -2439,11 +2610,34 @@ if (skor >= 3.5){
         <li>Kongsi amalan terbaik melalui PLC.</li>
     `;
 
-    aiSummary =
-    `Berdasarkan analisis AI, prestasi keseluruhan sekolah berada pada tahap Cemerlang. 
-    Kepimpinan sekolah menunjukkan keberkesanan yang tinggi dengan pengurusan organisasi yang sistematik serta pelaksanaan proses pembelajaran yang berkualiti. 
-    Sekolah disarankan untuk terus mengekalkan momentum kecemerlangan dan berkongsi amalan terbaik dengan sekolah lain sebagai penanda aras daerah.`;
+    aiSummary = `
+<b>${record.nama_sekolah}</b> memperoleh skor keseluruhan
+<b>${skor.toFixed(2)}</b>.
 
+Sekolah berada pada kedudukan
+<b>${kedudukan}</b>
+daripada
+<b>${jumlahSekolah}</b>
+buah sekolah.
+
+Standard terbaik ialah
+<b>${terbaik.nama}</b>
+dengan skor
+<b>${terbaik.skor.toFixed(2)}</b>.
+
+Standard yang memerlukan perhatian ialah
+<b>${terendah.nama}</b>
+dengan skor
+<b>${terendah.skor.toFixed(2)}</b>.
+
+${
+achieveTarget
+?
+`✅ Sekolah telah mencapai sasaran daerah (+${bezaTarget}).`
+:
+`⚠️ Sekolah masih belum mencapai sasaran daerah (${bezaTarget}).`
+}
+`;
 }
 
 else if (skor >= 2.50){
@@ -2468,9 +2662,34 @@ else if (skor >= 2.50){
         <li>Laksanakan PLC berkala.</li>
     `;
 
-    aiSummary =
-    `Prestasi sekolah berada pada tahap Baik. Sebahagian besar indikator telah memenuhi sasaran, namun masih terdapat ruang penambahbaikan khususnya pada Standard yang memperoleh skor lebih rendah. Dengan intervensi yang berfokus dan pemantauan berterusan, sekolah berpotensi mencapai tahap Cemerlang.`;
+    aiSummary = `
+<b>${record.nama_sekolah}</b> memperoleh skor keseluruhan
+<b>${skor.toFixed(2)}</b>.
 
+Sekolah berada pada kedudukan
+<b>${kedudukan}</b>
+daripada
+<b>${jumlahSekolah}</b>
+buah sekolah.
+
+Standard terbaik ialah
+<b>${terbaik.nama}</b>
+dengan skor
+<b>${terbaik.skor.toFixed(2)}</b>.
+
+Standard yang memerlukan perhatian ialah
+<b>${terendah.nama}</b>
+dengan skor
+<b>${terendah.skor.toFixed(2)}</b>.
+
+${
+achieveTarget
+?
+`✅ Sekolah telah mencapai sasaran daerah (+${bezaTarget}).`
+:
+`⚠️ Sekolah masih belum mencapai sasaran daerah (${bezaTarget}).`
+}
+`;
 }
 
 else{
@@ -2495,12 +2714,39 @@ else{
         <li>Pantau kemajuan setiap bulan.</li>
     `;
 
-    aiSummary =
-    `Analisis AI menunjukkan sekolah memerlukan intervensi segera. Beberapa Standard masih belum mencapai sasaran daerah dan memerlukan tindakan susulan yang sistematik. Pelaksanaan pelan intervensi, pemantauan berkala dan bimbingan berfokus dijangka dapat meningkatkan prestasi sekolah dalam penilaian akan datang.`;
+   aiSummary = `
+<b>${record.nama_sekolah}</b> memperoleh skor keseluruhan
+<b>${skor.toFixed(2)}</b>.
+
+Sekolah berada pada kedudukan
+<b>${kedudukan}</b>
+daripada
+<b>${jumlahSekolah}</b>
+buah sekolah.
+
+Standard terbaik ialah
+<b>${terbaik.nama}</b>
+dengan skor
+<b>${terbaik.skor.toFixed(2)}</b>.
+
+Standard yang memerlukan perhatian ialah
+<b>${terendah.nama}</b>
+dengan skor
+<b>${terendah.skor.toFixed(2)}</b>.
+
+${
+achieveTarget
+?
+`✅ Sekolah telah mencapai sasaran daerah (+${bezaTarget}).`
+:
+`⚠️ Sekolah masih belum mencapai sasaran daerah (${bezaTarget}).`
+}
+`;;
 
 }
      const summaryHtml = `
 <div style="font-family:Poppins,Arial,sans-serif;color:#222;width:100%">
+
 
   <!-- HEADER RASMI -->
   <div style="text-align:center;border-bottom:3px solid #6a1b9a;padding-bottom:14px;margin-bottom:18px">
@@ -2529,7 +2775,65 @@ else{
     Tarikh Lawatan: ${tarikh}<br/>
     Penilai: ${record.penilai_ppd}
   </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
 
+<div class="bg-blue-50 rounded-xl p-4 text-center">
+
+<div class="text-3xl">🏆</div>
+
+<div class="text-xs text-gray-500">
+Ranking
+</div>
+
+<div class="text-2xl font-bold">
+${kedudukan}
+</div>
+
+</div>
+
+<div class="bg-green-50 rounded-xl p-4 text-center">
+
+<div class="text-3xl">📊</div>
+
+<div class="text-xs">
+Skor
+</div>
+
+<div class="text-2xl font-bold">
+${skor.toFixed(2)}
+</div>
+
+</div>
+
+<div class="bg-yellow-50 rounded-xl p-4 text-center">
+
+<div class="text-3xl">⭐</div>
+
+<div class="text-xs">
+Standard Terbaik
+</div>
+
+<div class="font-bold">
+${terbaik.nama}
+</div>
+
+</div>
+
+<div class="bg-red-50 rounded-xl p-4 text-center">
+
+<div class="text-3xl">⚠️</div>
+
+<div class="text-xs">
+Standard Terendah
+</div>
+
+<div class="font-bold">
+${terendah.nama}
+</div>
+
+</div>
+
+</div>
   <!-- SKOR BESAR -->
   <div style="display:flex;gap:14px;margin-bottom:14px">
     <div style="flex:1;border-radius:10px;padding:16px;background:#f3e8ff;text-align:center">
@@ -2547,53 +2851,6 @@ else{
       </div>
     </div>
   </div>
-<div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white rounded-2xl p-6 shadow-lg">
-
-    <div class="flex items-center justify-between">
-        <div>
-            <h2 class="text-3xl font-bold">🤖 AI Executive Summary</h2>
-            <p class="text-indigo-100 mt-1">
-                Rumusan Analisis Prestasi Sekolah
-            </p>
-        </div>
-
-        <div class="text-right">
-            <div class="text-sm opacity-90">Tarikh Analisis</div>
-            <div class="font-semibold">
-                ${new Date().toLocaleDateString('ms-MY')}
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="grid md:grid-cols-4 gap-5 mt-6">
-
-    <div class="bg-white rounded-xl shadow border p-5">
-        <div class="text-gray-500 text-sm">Sekolah</div>
-        <div class="font-bold text-lg mt-1">
-            ${record.school_name}
-        </div>
-    </div>
-
-    <div class="bg-green-50 rounded-xl shadow border p-5">
-        <div class="text-gray-500 text-sm">Skor Keseluruhan</div>
-        <div class="text-4xl font-bold text-green-600">
-            ${record.skor_keseluruhan.toFixed(2)}
-        </div>
-    </div>
-
-    <div class="bg-blue-50 rounded-xl shadow border p-5">
-        <div class="text-gray-500 text-sm">Status</div>
-        <div class="text-xl font-bold text-blue-700">
-            ${statusLabel}
-        </div>
-    </div>
-
-    <div class="bg-purple-50 rounded-xl shadow border p-5">
-        <div class="text-gray-500 text-sm">Tahap Prestasi</div>
-        <div class="text-3xl">
-            ${statusEmoji}
         </div>
     </div>
 
@@ -2634,7 +2891,7 @@ else{
 <div class="bg-indigo-50 rounded-xl border border-indigo-200 p-6 mt-6">
 
     <h3 class="text-xl font-bold text-indigo-700 mb-4">
-        🎯 Cadangan AI
+        🎯 Cadangan 
     </h3>
 
     <ol class="list-decimal ml-5 space-y-2">
@@ -2648,7 +2905,7 @@ else{
 <div class="bg-gray-50 rounded-xl border p-6 mt-6">
 
     <h3 class="text-xl font-bold mb-4">
-        🤖 Rumusan AI
+        🤖 Rumusan
     </h3>
 
     <p class="leading-8 text-gray-700">
@@ -2957,165 +3214,7 @@ function logout() {
   location.reload();
 }
 setInterval(loadFromSheet, 30000);
-function updateRanking() {
 
-  const topBox =
-    document.getElementById("top-ranking");
-
-  const bottomBox =
-    document.getElementById("bottom-ranking");
-
-  if (!allRecords.length) {
-
-    topBox.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
-    bottomBox.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
-    return;
-  }
-
-  const sorted = [...allRecords]
-  .sort((a,b) =>
-    b.skor_keseluruhan - a.skor_keseluruhan
-  );
-
-  const top5 = sorted.slice(0,5);
-
-  const bottom5 = sorted.slice(-5).reverse();
-
-  topBox.innerHTML = top5.map((r,i)=>`
-
-    <div class="flex items-center justify-between
-      bg-green-50 border border-green-200
-      rounded-lg px-3 py-2">
-
-      <div>
-
-        <div class="font-semibold text-gray-800">
-          ${i+1}. ${r.nama_sekolah}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || ""}
-        </div>
-
-      </div>
-
-      <div class="font-bold text-green-700">
-        ${Number(r.skor_keseluruhan).toFixed(2)}
-      </div>
-
-    </div>
-
-  `).join("");
-
-  bottomBox.innerHTML = bottom5.map((r,i)=>`
-
-    <div class="flex items-center justify-between
-      bg-red-50 border border-red-200
-      rounded-lg px-3 py-2">
-
-      <div>
-
-        <div class="font-semibold text-gray-800">
-          ${i+1}. ${r.nama_sekolah}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || ""}
-        </div>
-
-      </div>
-
-      <div class="font-bold text-red-700">
-        ${Number(r.skor_keseluruhan).toFixed(2)}
-      </div>
-
-    </div>
-
-  `).join("");
-}
-function updateRanking() {
-
-  const topDiv =
-    document.getElementById("top-ranking");
-
-  const bottomDiv =
-    document.getElementById("bottom-ranking");
-
-  if (!allRecords || allRecords.length === 0) {
-
-    topDiv.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
-    bottomDiv.innerHTML =
-      "<div class='text-gray-500'>Tiada data</div>";
-
-    return;
-  }
-
-  const sorted = [...allRecords]
-    .sort((a, b) =>
-      (b.skor_keseluruhan || 0) -
-      (a.skor_keseluruhan || 0)
-    );
-
-  const top5 = sorted.slice(0, 5);
-
-  const bottom5 =
-    [...sorted].reverse().slice(0, 5);
-
-  topDiv.innerHTML = top5.map((r, i) => `
-
-    <div class="flex items-center justify-between
-      bg-green-50 border border-green-200
-      rounded-lg px-3 py-2">
-
-      <div>
-        <div class="font-semibold text-gray-800">
-          ${i + 1}. ${r.nama_sekolah || "-"}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || ""}
-        </div>
-      </div>
-
-      <div class="font-bold text-green-700">
-        ${(r.skor_keseluruhan || 0).toFixed(2)}
-      </div>
-
-    </div>
-
-  `).join("");
-
-  bottomDiv.innerHTML = bottom5.map((r, i) => `
-
-    <div class="flex items-center justify-between
-      bg-red-50 border border-red-200
-      rounded-lg px-3 py-2">
-
-      <div>
-        <div class="font-semibold text-gray-800">
-          ${i + 1}. ${r.nama_sekolah || "-"}
-        </div>
-
-        <div class="text-xs text-gray-500">
-          ${r.kod_sekolah || ""}
-        </div>
-      </div>
-
-      <div class="font-bold text-red-700">
-        ${(r.skor_keseluruhan || 0).toFixed(2)}
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
 const instrumenData = {
 
   1: `
@@ -3583,14 +3682,12 @@ if(reportImages.length > 0){
 
   `;
 
-  document.getElementById("report-content").innerHTML =
-    reportHTML;
-
-  document
-    .getElementById("report-modal")
-    .classList.remove("hidden");
+document.getElementById("report-content").innerHTML = reportHTML;
+document.getElementById("report-modal")
+.classList.remove("hidden");
 
 }
+
 let reportImages = [];
 
 document
